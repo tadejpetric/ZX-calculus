@@ -1,0 +1,187 @@
+% !TeX spellcheck = sl_SI
+\documentclass[mat1]{fmfdelo}
+% \documentclass[fin1]{fmfdelo}
+% \documentclass[isrm1]{fmfdelo}
+% \documentclass[mat2]{fmfdelo}
+% \documentclass[fin2]{fmfdelo}
+% \documentclass[isrm2]{fmfdelo}
+
+% naslednje ukaze ustrezno napolnite
+\avtor{Tadej Petrič}
+\naslov{ZX-račun}
+\title{ZX-calculus}
+
+% navedite ime mentorja s polnim nazivom: doc.~dr.~Ime Priimek,
+% izr.~prof.~dr.~Ime Priimek, prof.~dr.~Ime Priimek
+% uporabite le tisti ukaz/ukaze, ki je/so za vas ustrezni
+\mentor{doc.~dr.~Matija Pretnar}
+%\mentorica{izr.~prof.~dr.~Ime Priimek}
+%\somentor{doc.~dr.~Ime Priimek}
+%\somentorica{doc.~dr.~Ime Priimek}
+% \mentorja{}{}
+% \mentorici{}{}
+
+\letnica{2021} % leto diplome
+
+%  V povzetku na kratko opišite vsebinske rezultate dela. Sem ne sodi razlaga organizacije dela --
+%  v katerem poglavju/razdelku je kaj, pač pa le opis vsebine.
+\povzetek{ZX-račun je nov pristop k formalizaciji kvantnega računalništva. Kvantna vezja in procese predstavimo kot barvne grafe z dodatnimi pravili za poenostavljanje, kar omogoči opis vsakega kvantnega vezja. Ogledamo si tudi različne delce ZX računa, ki omogočijo predstavitev različnih modelov kvantnega računalništva. Graf lahko pretvorimo tudi v matriko.}
+
+%  Prevod slovenskega povzetka v angleščino.
+\abstract{ZX-calculus is a new approach to the formalization of quantum computing. Quantum circuits are represented with coloured graphs with added simplification rules. Using ZX-calculus, we can describe any quantum circuit. We also explore several fragments of ZX calculus and their use in describing different computational models. The graphs can also be converted to matrices.}
+
+% navedite vsaj eno klasifikacijsko oznako --
+% dostopne so na www.ams.org/mathscinet/msc/msc2010.html
+\klasifikacija{81P68}
+\kljucnebesede{Kvantno računalništvo, ZX-račun, graf, kategorična kvantna mehanika} % navedite nekaj ključnih pojmov, ki nastopajo v delu
+\keywords{Quantum computing, ZX-calculus, graph, categorical quantum mechanics} % angleški prevod ključnih besed
+
+\zapisiMetaPodatke  % poskrbi za metapodatke in veljaven PDF/A-1b standard
+
+% aktivirajte pakete, ki jih potrebujete
+% \usepackage{tikz}
+
+% za številske množice uporabite naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+% matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
+% \DeclareMathOperator{\conv}{conv}
+% na razpolago so naslednja matematična okolja, ki jih kličemo s parom
+% \begin{imeokolja}[morebitni komentar v oklepaju] ... \end{imeokolja}
+%
+% definicija, opomba, primer, zgled, lema, trditev, izrek, posledica, dokaz
+%
+
+% vstavite svoje definicije ...
+%  \newcommand{}{}
+
+\begin{document}
+
+\section{Uvod}
+Koncept kvantnega računalništva se je začel leta 1981, ko je Richard Feynman predlagal kako bi lahko simulirali določene fizikalne procese z uporabo nekaterih lastnosti kvantne mehanike. Klasični algoritmi imajo namreč težavo, da je časovna zahtevnost simulacije eksponentna glede na njeno velikost. Ker pa je narava teh simulacij pogosto probabilistična lahko uporabimo prednosti kvantne mehanike, ki je tudi sama probabilistična, da jih simuliramo bolj učinkovito, na primer z linearno kompleksnostjo. Na začetku so bili najbolj zanimivi procesi, kjer je potrebno upoštevati kvantno mehaniko - Feynman je namreč predlagal, da so vsi kvantni sistemi na nek način ekvivalentni. Potem je simulacija preprosta, saj le izvajamo iste korake v kvantnem računalniku, kot se bi izvajali v dejanskem ekspirimentu, za rezultat pa pogledamo končno stanje računalnika.
+
+Izkazalo pa se je, da imajo kvantni računalniki mnogo uporabe tudi izven fizikalnih simulacij: Shorov algoritem sprejme število, in vrne njegove prafaktorje. Ta problem je klasično zelo težek, ne vemo še, ali obstaja učinkovita rešitev, kvantno pa poznamo rešitev, ki deluje hitreje kot eksponentno. Podobno obstaja mnogo drugih težkih problemov za katere imamo hitro kvantno rešitev, na primer iskanje inverzne funkcije, Fourierjeva transformacija, iskanje diskretnega logaritma\ldots
+
+Vprašanje je le kako formalizirati kvantne računalnike in kako jih programirati. Von Neumann je o
+
+\section{Klasično računalništvo}
+\section{Kvantna mehanika}
+\subsection{Von Neumannova slika}
+\subsubsection{Kvantna stanja}
+\subsubsection{Opazljivke}
+\subsubsection{Meritve}
+\subsubsection{Spin}
+\subsection{Bellov izrek}
+\subsection{Kubiti}
+\subsection{Kvantna vrata}
+\subsection{Kvantna vezja}
+\subsection{Implementacija}
+\section{ZX-račun}
+\subsection{Pajki}
+\subsection{Aksiomi}
+\subsection{Primeri}
+\subsection{Drobci}
+\subsection{Kategorična slika}
+\subsection{Dodatki}
+\section{Kvantna mehanika z grafičnimi vezji}
+\section{Poenostavjanje vezij}
+\subsection{Quantomatic}
+\section{Kvantni algoritmi in programiranje}
+\subsection{Deutsch-Jozsov algoritem}
+\subsection{Kvantno iskanje in Shorov algoritem}
+\subsection{Računanje preko meritev}
+
+\section{Konec dela}
+
+Na konec dela sodita angleško-slovenski slovarček strokovnih izrazov in seznam
+uporabljene literature, morebitne priloge (programska koda, daljša ponovitev
+dela snovi, ki je bil obravnavan med študijem \dots) pa neposredno pred ti
+enoti. Slovar naj vsebuje vse pojme, ki ste jih spoznali ob pripravi dela, pa
+tudi že znane pojme, ki ste jih spoznali pri izbirnih predmetih. Najprej
+navedite angleški pojem (ti naj bodo urejeni po abecedi) in potem ustrezni
+slovenski prevod; zaželeno je, da temu sledi tudi opis pojma, lahko komentar
+ali pojasnilo. Slovarska gesla navajajte z ukazom \verb|\geslo{}{}|, npr.\
+\verb|\geslo{continuous}{zvezen}|.
+
+Pri navajanju literature si pomagajte s spodnjimi primeri; najprej je opisano
+pravilo za vsak tip vira, nato so podani primeri. Člen literature napišete z
+ukazom \verb|\bibitem{oznaka} podatki o viru|, kjer mora \emph{ozmaka} enolično
+določati vir.  Posebej opozarjam, da spletni viri uporabljajo paket url, ki je
+vključen v~.cls datoteki. Polje ``ogled'' pri spletnih virih je obvezno; če je
+kak podatek neznan, ustrezno ``polje'' seveda izpustimo. Literaturo je potrebno
+urediti po abecednem vrstnem redu; najprej navedemo vse vire z znanimi avtorji
+(tiskane in spletne) po abecednem redu avtorjev (po priimkih, nato imenih),
+nato pa spletne vire brez avtorjev, urejene po naslovih strani. Če isti vir
+navajamo v dveh oblikah, kot tiskani in spletni vir, najprej navedemo tiskani
+vir, nato pa še podatek o tem, kje je dostopen v elektronski obliki.
+
+\section*{Slovar strokovnih izrazov}
+
+\geslo{continuous}{zvezen}
+\geslo{uniformly continuous}{enakomerno zvezen}
+
+\geslo{compact}{kompakten -- metrični prostor je kompakten, če ima v njem vsako zaporedje stekališče; podmnožica evklidskega prostora je kompaktna natanko tedaj, ko je omejena in zaprta  }
+
+\geslo{glide reflection}{zrcalni zdrs ali zrcalni pomik -- tip ravninske evklidske izometrije, ki je kompozitum zrcaljenja in translacije vzdolž iste premice}
+
+\geslo{lattice}{mreža}
+
+\geslo{link}{splet}
+
+\geslo{partition}{\textbf{$\sim$ of a set} razdelitev množice; \textbf{$\sim$ of a number} razčlenitev števila}
+
+% seznam uporabljene literature
+\begin{thebibliography}{99}
+
+\bibitem{referenca-clanek}
+I.~Priimek, \emph{Naslov članka}, okrajšano ime revije \textbf{letnik revije} (leto izida) strani od--do.
+
+\bibitem{navodilaOMF}
+C.~Velkovrh, \emph{Nekaj navodil avtorjem za pripravo rokopisa}, Obzornik mat.\ fiz.\ \textbf{21} (1974) 62--64.
+
+\bibitem{vec-avtorjev}
+P.~Angelini, F.~Frati in M.~Kaufmann, \emph{Straight-line rectangular drawings of clustered graphs}, Discrete Comput.\ Geom.\ \textbf{45} (2011) 88--140.
+
+
+\bibitem{referenca-knjiga}
+I.~Priimek, \emph{Naslov knjige}, morebitni naslov zbirke  \textbf{zaporedna številka}, založba, kraj, leto izdaje.
+
+\bibitem{glob}
+J.~Globevnik in M.~Brojan, \emph{Analiza I}, Matematični rokopisi \textbf{25}, DMFA -- založništvo, Ljubljana, 2010.
+
+\bibitem{glob-vse}
+J.~Globevnik in M.~Brojan, \emph{Analiza I}, Matematični rokopisi \textbf{25}, DMFA -- založništvo, Ljubljana, 2010; dostopno tudi na
+\url{http://www.fmf.uni-lj.si/~globevnik/skripta.pdf}.
+
+\bibitem{lang}
+S.~Lang, \emph{Fundamentals of differential geometry}, Graduate Texts in Mathematics \textbf{191}, Springer-Verlag, New York, 1999.
+
+\bibitem{referenca-clanek-v-zborniku}
+I.~Priimek, \emph{Naslov članka}, v: naslov zbornika (ur.\ ime urednika), morebitni naslov zbirke  \textbf{zaporedna številka}, založba, kraj, leto izdaje, str.\ od--do.
+
+\bibitem{zbornik}
+S.~Cappell in J.~Shaneson, \emph{An introduction to embeddings, immersions and singularities in codimension two}, v: Algebraic and geometric topology, Part 2 (ur.\ R.~Milgram), Proc.\ Sympos.\ Pure Math.\ \textbf{XXXII}, Amer.\ Math.\ Soc., Providence, 1978, str.\ 129--149.
+
+\bibitem{diploma-magisterij}
+I.~Priimek, \emph{Naslov dela}, diplomsko/magistrsko delo, ime fakultete, ime univerze, leto.
+
+\bibitem{kalisnik}
+J.~Kališnik, \emph{Upodobitev orbiterosti}, diplomsko delo, Fakulteta za matematiko in fiziko, Univerza v Ljubljani, 2004.
+
+\bibitem{referenca-spletni-vir}
+I.~Priimek, \emph{Naslov spletnega vira}, v: ime morebitne zbirke/zbornika, ki vsebuje vir, verzija številka/datum, [ogled datum], dostopno na \url{spletni.naslov}.
+
+\bibitem{glob-splet}
+J.~Globevnik in M.~Brojan, \emph{Analiza 1}, verzija 15.~9.~2010, [ogled 12.~5.~2011], dostopno na \url{http://www.fmf.uni-lj.si/~globevnik/skripta.pdf}.
+
+\bibitem{wiki}
+\emph{Matrix (mathematics)}, v: Wikipedia, The Free Encyclopedia, [ogled 12.~5.~2011], dostopno na \url{http://en.wikipedia.org/wiki/Matrix_(mathematics)}.
+
+\end{thebibliography}
+
+\end{document}
+
