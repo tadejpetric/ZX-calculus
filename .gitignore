@@ -7,5 +7,11 @@
 *.toc
 *.vrb
 *.tikzstyles
-
+*.fls
+*.fdb_latexmk
+*.gz
+*.bcf
+*.blg
+*.xml
+*.bbl
 *~
