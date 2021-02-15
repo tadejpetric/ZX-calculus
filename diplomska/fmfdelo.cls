@@ -6,7 +6,7 @@
 %-----------------------------------------------------------------------------
 
 % Nalozimo pakete, ki ponujajo enostavno programiranje.
-\RequirePackage{etoolbox, ifthen, keyval}
+\RequirePackage{etoolbox, ifthen, keyval, biblatex}
 
 % Definiramo pomozne ukaze.
 \newcommand{\@ifthen}[2]{\ifthenelse{#1}{#2}{\relax}}

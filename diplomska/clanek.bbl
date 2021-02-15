@@ -1,0 +1,82 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{feynmann}{article}{}
+      \name{author}{1}{}{%
+        {{hash=76c376c1c6574c7dad0b40422ddcb0af}{%
+           family={Feynman},
+           familyi={F\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \strng{fullhash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \strng{bibnamehash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \strng{authorbibnamehash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \strng{authornamehash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \strng{authorfullhash}{76c376c1c6574c7dad0b40422ddcb0af}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{7}
+      \field{journaltitle}{International Journal of Theoretical Physics}
+      \field{month}{5}
+      \field{title}{Simulating Physics with Computers}
+      \field{year}{1981}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://s2.smu.edu/~mitch/class/5395/papers/feynman-quantum-1981.pdf
+      \endverb
+      \verb{url}
+      \verb https://s2.smu.edu/~mitch/class/5395/papers/feynman-quantum-1981.pdf
+      \endverb
+    \endentry
+    \entry{neumann}{article}{}
+      \name{author}{1}{}{%
+        {{hash=cfa13c3f0a2d06244a4d6643287dbab5}{%
+           family={Redei},
+           familyi={R\bibinitperiod},
+           given={Miklos},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \strng{fullhash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \strng{bibnamehash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \strng{authorbibnamehash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \strng{authornamehash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \strng{authorfullhash}{cfa13c3f0a2d06244a4d6643287dbab5}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Studies in History and Philosophy of Modern Physics}
+      \field{month}{12}
+      \field{title}{Why John von Neumann did not Like the Hiblert Space Formalism of Quantum Mechanics (and what he liked instead)}
+      \field{year}{1996}
+      \verb{doi}
+      \verb https://doi.org/10.1016/S1355-2198(96)00017-2
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
