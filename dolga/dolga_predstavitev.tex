@@ -213,7 +213,22 @@ line width=0.8 pt,inner sep=3pt,minimum width=1.5em,minimum height=1.5em]
     \draw (1) to (2);
     \draw (2) to (3);
     \draw (3) to (4);
-  \end{tikzpicture}\\\pause{}
+  \end{tikzpicture}\\
+  Ali pa kot\\\vspace{3mm}
+  \begin{tikzpicture}
+    \node (0) at (0.00, 0.00) {};
+    \node [style=rn] (1) at (1, 0) {\(\frac\pi2\)};
+    \node [style=gn] (2) at (2, 0) {\(\frac\pi2\)};
+    \node [style=rn] (3) at (3, 0) {\(\frac\pi2\)};
+    \node (4) at (4.00, 0.00) {};
+    \draw (0) to (1);
+    \draw (1) to (2);
+    \draw (2) to (3);
+    \draw (3) to (4);
+  \end{tikzpicture}
+\end{frame}
+\begin{frame}
+  \frametitle{Hadamardova vrata}
   Če imamo\vspace{3mm}\\
   \begin{tikzpicture}
     \node (0) at (0,0) {};
@@ -310,13 +325,13 @@ lahko pretvorimo v
   \frametitle{Pravila}
   Postavimo si nekaj aksiomov, s katerimi grafično poenostavljamo vezja.
 
-  Izbira ni unikatna! Z izbiro aksiomov izberemo delec ZX-računa. S tem izberemo kakšne kvantne sisteme simulira.
+  Izbira ni unikatna! Z izbiro aksiomov izberemo različico ZX-računa. S tem izberemo kakšne kvantne sisteme simulira.
 
   Namesto, da izhajamo iz negativnih trditev (kvantna teorija mere izhaja iz \emph{ne}aditivnosti meritev, kvantna logika iz \emph{ne}distributivnosti\dots), izhajamo iz pozitivnih (kaj velja).
 \end{frame}
 \begin{frame}
   \frametitle{Uvod v aksiome}
-  Vsako pravilo velja če zamenjamo vse barve.
+  Vsako pravilo velja, če zamenjamo rdečo in zeleno barvo.
 
   Graf lahko topološko preuredimo in še vedno predstavlja isti sistem (fiksiramo le globalne vhode in izhode)
 \end{frame}
@@ -650,7 +665,7 @@ lahko pretvorimo v
 \end{frame}
 \begin{frame}
   \frametitle{Primer: Komplementarnost}
-  Uporabimo izrek za kloniranje na obeh straneh
+  Uporabimo izrek za kopiranje na obeh straneh
   \begin{center}
     \begin{tikzpicture}
     \node (in) at (0,1) {};
@@ -806,6 +821,21 @@ lahko pretvorimo v
   \end{tikzpicture}
 \end{center}
   To vedno lahko dosežemo tako, da jo zapišemo kot linearno preslikavo.
+\end{frame}
+\begin{frame}
+  \frametitle{Primer: funkcija in}
+  \begin{align*}
+    \land: \{(0,0),(1,0),(0,1), (1,1)\}\mapsto \{0,1\}\\
+    (0,0)\mapsto 0\\
+    (1,0)\mapsto 0\\
+    (0,1)\mapsto 0\\
+    (1,1)\mapsto 1
+  \end{align*}
+  Lahko zapišemo kot vsoto linearnih funkcij
+  \begin{align*}
+    \ketbra{0}{00} + \ketbra{0}{10} + \ketbra{0}{01} + \ketbra{1}{11}
+  \end{align*}
+  kjer vsak člen preslika željen vhod v željen izhod.
 \end{frame}
 \begin{frame}
   \frametitle{Unitarni kvantni orakelj}
@@ -964,7 +994,7 @@ postane
 \end{frame}
 \begin{frame}
   \frametitle{Evalvacija}
-  Ker je vhod klasičen se lahko kopira
+  Ker je vhod klasičen, se lahko kopira
   \begin{center}
     \begin{tikzpicture}
         \node [style=classi] (sg) at (0,2) {x};
@@ -1058,7 +1088,7 @@ postane
   Če pa imamo dano kakšno omejitev na funkcijo \(f\), lahko problem rešimo zelo hitro!
 \end{frame}
 \begin{frame}
-  \frametitle{Deutsch-Jozsa algoritem}
+  \frametitle{Deutsch-Jozsev algoritem}
   Dano imamo funkcijo
   \begin{align*}
     f: \{0,1\}^n\to \{0,1\},
@@ -1070,8 +1100,8 @@ postane
   Ugotoviti želimo ali je konstantna.
 \end{frame}
 \begin{frame}
-  \frametitle{Deutsch-Jozsa algoritem}
-  S klasičnimi računalniki moramo funkcijo evalvirati kar \(2^{n-1}+1\) krat! Preverimo več kot polovico vhodov!
+  \frametitle{Deutsch-Jozsev algoritem}
+  S klasičnimi računalniki moramo funkcijo v najslabšem primeru evalvirati kar \(2^{n-1}+1\) krat! Preverimo več kot polovico vhodov!
 
   S kvantnim vezjem ugotovimo odgovor v eni sami evalvaciji funkcije.
   \begin{center}
@@ -1094,7 +1124,7 @@ postane
   \end{center}
 \end{frame}
 \begin{frame}
-  \frametitle{Deutsch-Jozsa algoritem}
+  \frametitle{Deutsch-Jozsev algoritem}
   Če se vezje poenostavi v
   \begin{center}
     \begin{tikzpicture}
@@ -1102,10 +1132,18 @@ postane
       \draw (1) to (1,0);
     \end{tikzpicture}
   \end{center}
-  potem je \(f\) konstantna, sicer je uravnotežena.
+  potem je \(f\) konstantna, sicer je uravnotežena. To lahko preverimo tako, da dodamo meritev
+  \begin{center}
+    \begin{tikzpicture}
+      \node [style=gn] (1) at (0,0) {\(\cdot\)};
+      \node [style=gn] (2) at (1,0) {\(\cdot\)};
+      \draw (1) to (2);
+    \end{tikzpicture}
+  \end{center}
+  ki se mora poenostaviti v \(1\) za konstantno meritev in \(0\) za uravnoteženo.
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
   Če je funkcija konstantna, izbriše vhod in vnese svojega, torej jo lahko zamenjamo z
   \begin{center}
     \begin{tikzpicture}
@@ -1117,11 +1155,33 @@ postane
       \draw (x) to (e);
     \end{tikzpicture}
   \end{center}
-  Dobimo dve ločene komponente. Desno zavržemo, leva se pa poenostavi v željeno meritev
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
-  Če je funkcija ni konstantna, pride v upoštev desna stran. Ko testiramo, če je funkcija konstantna, želimo verjetnost \(0\).
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
+  \begin{center}
+    \begin{tikzpicture}
+      \node [style=gn] (sr) at (0,0) {\(\pi\)};
+      \node [style=gn] (sg) at (0,2) {\(\cdot\)};
+      \node [style=gn] (g) at (1,2) {\(\cdot\)};
+      \node [style=gn] (f) at (2,1) {\(\cdot\)};
+      \node [style=classi] (x) at (3,1) {x};
+      \node [style=rn] (r) at (4,0) {};
+      \node [style=gn] (eg) at (4,2) {\(\cdot\)};
+      \node [ground, rotate=90] (er) at (5,0) {};
+      \draw (sg) to (g);
+      \draw (g) to (f);
+      \draw (x) to (r);
+      \draw (g) to (eg);
+      \draw (sr) to (r);
+      \draw (r) to (er);
+      \draw (eg) to (5, 2);
+    \end{tikzpicture}
+  \end{center}
+  Dobimo dve ločeni komponenti. Spodnjo zavržemo, zgornja se pa poenostavi v željeno meritev
+\end{frame}
+\begin{frame}
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
+  V primeru, če \(f\) ni konstantna, pride v poštev spodnja stran. Ko testiramo, če je funkcija konstantna, želimo verjetnost \(0\).
   \begin{center}
     \begin{tikzpicture}
       \node [style=gn] (sr) at (0,0) {\(\pi\)};
@@ -1144,7 +1204,7 @@ postane
   Dodamo Z pajek meritve, da preverjamo konstantnost.
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
   Združimo pajke
   \begin{center}
     \begin{tikzpicture}
@@ -1161,8 +1221,8 @@ postane
   \end{center}
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
-  Pravilo kloniranja
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
+  Pravilo kopiranja
   \begin{center}
     \begin{tikzpicture}
       \node [style=gn] (g) at (0,1) {\(\cdot\)};
@@ -1177,7 +1237,7 @@ postane
   \end{center}
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
   Zavržemo del
   \begin{center}
     \begin{tikzpicture}
@@ -1190,8 +1250,8 @@ postane
   \end{center}
 \end{frame}
 \begin{frame}
-  \frametitle{Skica dokaza Deutsch-Jozsa}
-   Zato na drugem vhodu nastavimo fazo \(\pi\), ker \(e^\pi=-1\). Pajek predstavlja \(\ket0 - \ket 1\)
+  \frametitle{Pravilnost Deutsch-Jozsevega algoritma}
+   Zato na drugem vhodu nastavimo fazo \(\pi\), ker \(e^{\pi i}=-1\). Pajek predstavlja \(\bra0 - \bra1\)
   \begin{center}
     \begin{tikzpicture}
       \node [classi] (0) at (0,0) {0};
@@ -1204,15 +1264,15 @@ postane
       \draw (1) to (pi2);
     \end{tikzpicture}
   \end{center} 
-  Če damo funkciji za vhod zelen pajek pa naredi superpozicijo vseh izhodov in jih sešteje. Ker je funkcija uravnotežena, dobimo \(0\).
+  Če damo funkciji za vhod zelenega pajka, pa naredi superpozicijo vseh izhodov in jih sešteje. Ker je funkcija uravnotežena, dobimo \(0\).
 
   Iz tega bi sledilo, da je verjetnost odgovora 0, merili pa smo, če je funkcija konstantna (s predpostavko, da ni).
 \end{frame}
 \begin{frame}
   \frametitle{Zaključek}
-  Za formalen dokaz Deutch-Jozse bi bilo treba definirati podvojena vezja, zavračanje vrednosti in klasične vhode.
+  Za formalen dokaz pravilnosti Deutch-Jozsevega algoritma bi bilo treba definirati podvojena vezja, zavračanje vrednosti in klasične vhode.
 
-  Podoben izgled tudi drugi algoritmi, na primer kvantno iskanje ali iskanje skrite podgrupe.
+  Podobno pa so videti tudi drugi algoritmi, na primer kvantno iskanje ali iskanje skrite podgrupe.
 
   Zanimivo področje je tudi računanje preko meritev, še posebej za svetlobna vezja.
 \end{frame}
