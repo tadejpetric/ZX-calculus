@@ -48,6 +48,8 @@
 \usepackage{quantikz}
 \usepackage{amsmath}
 \usepackage{graphicx}
+%\usepackage{circuitikz}
+
 \addbibresource{sources.bib}
 
 % za številske množice uporabite naslednje simbole
@@ -65,6 +67,7 @@
 %
 % definicija, opomba, primer, zgled, lema, trditev, izrek, posledica, dokaz
 %
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
 \definecolor{zx_red}{RGB}{232, 165, 165}
 \definecolor{zx_green}{RGB}{216, 248, 216}
 \definecolor{had_yellow}{RGB}{221, 218, 28}
@@ -85,7 +88,7 @@
 \section{Uvod}
 Koncept kvantnega računalništva se je začel leta 1981, ko je Richard Feynman predlagal, kako bi lahko simulirali določene fizikalne procese z uporabo nekaterih lastnosti kvantne mehanike\cite{feynmann}. Klasični algoritmi imajo namreč težavo, da je časovna zahtevnost simulacije eksponentna glede na njeno velikost. Ker pa je narava teh simulacij pogosto probabilistična lahko uporabimo prednosti kvantne mehanike, ki je tudi sama probabilistična, da jih simuliramo bolj učinkovito, na primer z linearno kompleksnostjo. Na začetku so bili najbolj zanimivi procesi, kjer je potrebno upoštevati kvantno mehaniko -- Feynman je namreč predlagal, da so vsi kvantni sistemi na nek način ekvivalentni. Potem je simulacija preprosta, saj le izvajamo iste korake v kvantnem računalniku, kot se bi izvajali v dejanskem ekspirimentu, za rezultat pa pogledamo končno stanje računalnika.
 
-Izkazalo pa se je, da imajo kvantni računalniki mnogo uporabe tudi izven fizikalnih simulacij: Shorov algoritem sprejme število, in vrne njegove prafaktorje. Ta problem je klasično zelo težek, ne vemo še, ali obstaja učinkovita rešitev, kvantno pa poznamo rešitev, ki deluje hitreje kot eksponentno. Podobno obstaja mnogo drugih težkih problemov za katere imamo hitro kvantno rešitev, na primer iskanje inverzne funkcije, Fourierjeva transformacija, iskanje diskretnega logaritma\ldots
+Izkazalo pa se je, da imajo kvantni računalniki mnogo uporabe tudi izven fizikalnih simulacij: Shorov algoritem sprejme število, in vrne njegove prafaktorje. Ta problem je klasično zelo težek, ne vemo še, ali obstaja učinkovita rešitev, kvantno pa poznamo rešitev, ki deluje hitreje kot eksponentno. Podobno obstaja mnogo drugih težkih problemov za katere imamo hitro kvantno rešitev, na primer iskanje inverzne funkcije, Fourierjeva transformacija, iskanje diskretnega logaritma...
 
 Pomembno vprašanje je kako formalizirati kvantne računalnike in kako jih programirati. John Von Neumann je formaliziral kvantno mehaniko z uporabo Hilbertih prostorov, ta pristop je najbolj pogosto uporabljen še danes\cite{neumann}. Izkaže pa se, da velik del teorije postane bolj naraven, če uporabimo drugačen pristop. To je kmalu predlagal že Neumann z kvantno logiko, vendar se pristop takrat še ni uveljavil, kar je močno obžaloval. Iz kvantne logike se je razvil moderni pristop, kategorična kvantna mehanika. Tukaj lahko mnoge zakone opišemo le z diagrami, kar naredi mnogo dejstev bolj naravnih, ne izgubimo pa nič natančnosti. Iz kategorične kvantne mehanike se je razvil ZX-račun, ki ga uporabljamo za opis kvantnih vrat in vezij z uporabo diagramov. Znotraj samega ZX-računa pa bo marsikaj bolj enostavno, na primer iskanje algoritmov, iskanje novih fizikalnih zakonov in poenostavljanje vezij.
 
@@ -102,10 +105,68 @@ Bite lahko združimo v skupine. Skupina bitov je element kartezičnega produkta 
     &\vdots
 \end{align*}
 
+Funkcije skupin bitov imenujemo logična vrata oziroma. Najbolj osnovna vrata so vrata za konjunkcijo, disjunkcijo in negacijo.
+\begin{align*}
+    \land(\ket{ab}) = \ket{a}\land\ket{b} = \ket{a\land b},\\
+    \lor(\ket{ab}) = \ket{a}\lor\ket{b} = \ket{a\lor b},\\
+    \lnot\ket{a} = \ket{\lnot a}.
+\end{align*}
+Izkaže se, da je zgornji nabor operacij (skupaj s kompozicijo) dovolj, da izrazimo poljubno funkcijo \(B^n\to B\).
+\begin{definicija}
+    Množica logičnih vrat \(B^2\to B\) je funkcijsko polna, če lahko poljubno funkcijo \(B^n\to B\) predstavimo kot kompozicijo vrat iz te množice.
+\end{definicija}
+Izkaže se, da obstajajo še preprostejši primeri funkcijsko polnih naborov operatorjev. Najbolj znan je NAND, ki ga predstavimo kot \(\downarrow\)
+\begin{align*}
+    \ket{a}\downarrow \ket{b} = \lnot (\ket{a} \land \ket{b}),
+\end{align*}
+obstajajo pa še ostali, kot naprimer NOR.\cite{sheffers}
+
+Pogosto raje uporabljamo grafični zapis logičnih vrat. To je še posebej pomembno, saj se podobna grafična vezja definira tudi za kvantne računalnike. Začnemo z najenostavnejšimi logičnimi vrati, vrati za negacijo
+\begin{center}
+    \begin{tikzpicture}
+        \node[not gate US, draw, logic gate inputs=n] (neg) at (0,0){};
+        \node (a) at (-1,0) {\(\ket{a}\)};
+        \node (out) at (2,0) {\(\lnot \ket{a}\)};
+        \draw (a) to (neg.input);
+        \draw (neg.output) to (out);
+    \end{tikzpicture}.
+\end{center}
+Na levi strani pišemo vhode (v tem primeru \(\ket{a}\)), črte pa predstavljajo kompozicijo oziroma tok podatkov. Tukaj gre bit \(\ket{a}\) v vrata za negacijo. Na desni strani vrat pa dobimo negiran bit. Pogledamo si še malo bolj zapleteno vezje. Tukaj predstavimo De Morganov zakon
+\[
+    \lnot(\ket{a}\land \ket{b}) = \lnot\ket{a} \lor \lnot \ket{b}
+\]
+\begin{center}
+    \begin{tikzpicture}
+        \node[and gate US, draw, logic gate inputs=nn] (and) at (0,0){};
+        \node[not gate US, draw, logic gate inputs=n] (neg) at (1,0){};
+        \node (equal) at (3,0) {\(=\)};
+        \node[or gate US, draw, logic gate inputs=nn] (or) at ($(equal)+(3.5,0)$){};
+        \node[not gate US, draw, logic gate inputs=n] (nega) at ($(equal)+(2,0.5)$){};
+        \node[not gate US, draw, logic gate inputs=n] (negb) at ($(equal)+(2,-0.5)$){};
+        \node (a) at ($(equal)+(1,0.5)$) {\(\ket{a}\)};
+        \node (b) at ($(equal)+(1,-0.5)$) {\(\ket{b}\)};
+        \node (out) at ($(equal)+(5,0)$) {};
+        \node (a1) at (-1.5,-0.5) {\(\ket{a}\)};
+        \node (b1) at (-1.5,0.5) {\(\ket{b}\)};
+        \node (out1) at (2,0) {};
+        \draw (a1) to (and.input 2);
+        \draw (b1) to (and.input 1);
+        \draw (and.output) to (neg.input);
+        \draw (neg.output) to (out1);
+        \draw (a) to (nega.input);
+        \draw (b) to (negb.input);
+        \draw (or.output) to (out);
+        \draw (nega.output) to (or.input 1);
+        \draw (negb.output) to (or.input 2);
+    \end{tikzpicture}.
+\end{center}
 
 \subsection{Primeri}
 \subsection{Implementacija}
 \subsection{Klasična komunikacija}
+
+%----------------------------------------------------------- KONEC KLASIČNO ------------------------------------------------------------------------------
+
 \section{Kvantna mehanika}
 Klasični pristop do kvantne mehanike uporablja Hilbertove prostore\cite[stran 12]{mathforqm}.
 
