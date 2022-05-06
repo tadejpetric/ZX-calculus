@@ -60,8 +60,17 @@
 \newcommand{\C}{\mathbb C}
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\Hb}{\mathbb H}
-\newcommand{\interpret}[1]{\left\llbracket #1 \right\llbracket}
+\newcommand{\interpret}[1]{\left\llbracket #1 \right\rrbracket}
+\DeclareMathOperator*{\im}{im}
+\DeclareMathOperator*{\id}{id}
+\DeclareMathOperator*{\ann}{Ann}
+\DeclareMathOperator*{\spec}{Spec}
 
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\renewcommand{\phi}{\varphi}
 % matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
 % \DeclareMathOperator{\conv}{conv}
 % na razpolago so naslednja matematična okolja, ki jih kličemo s parom
@@ -319,10 +328,10 @@ Hitro opazimo, da dimenzija vektorskega prostora narašča eksponentno. Sistem d
 %----------------------------- ZX CALC -------------------------------------------
 
 \section{ZX-račun}
-V ZX-računu vezja predstavljamo kot graf.
+V ZX-računu vezja predstavljamo kot graf. To ima mnogo prednosti, saj so pogosto diagrami bolj pregledni ter poenostavljanje diagramov bolj preprosto. Ključno je, da lahko definiramo diagrame, ki so ekvivalentni vezjem (oziroma predstavljajo linearne preslikave), saj te ustrezajo kvantnim procesom. Potem si definiramo dovoljene operacije nad temi grafi, ki so na nek način kompatibilne z operacijami na matrikah vendar naravne ter enostavne za uporabo. Cilj pa je, da z diagrami popolnoma nadomestimo klasični pogled (z klasičnimi kvantnimi vezji in pa linearnimi preslikavami) ter, kjer je mogoče, opisujemo lastnosti le z uporabo ZX-diagramov kot osnovno orodje.
 \subsection{Pajki}
 Vozlišča v grafu se imenujejo pajki. Poznamo dva primarna tipa pajkov, Z pajek (barvamo zeleno) in X pajek (barvamo rdeče).
-
+\begin{center}
 \begin{tikzpicture}
     \node [style=gn] (2) at (1,0) {\(\alpha\)};
     \node [style=rn] (1) at (5,0) {\(\alpha\)};
@@ -331,8 +340,10 @@ Vozlišča v grafu se imenujejo pajki. Poznamo dva primarna tipa pajkov, Z pajek
     \draw (4,0) to (1);
     \draw (1) to (6,0);
 \end{tikzpicture}
+\end{center}
+Kadar je \(\alpha = 0\) faze ne pišemo, pajek ostane le zeleno ali rdeče pobarvan disk.
 
-Lahko imata poljubno število vhodov ali izhodov. V temu članku bomo pisali vhode na levi strani, izhode pa na desni strani pajka (izkaže pa se, da to ni pomembno). Kot primer, Z pajek z tremi vhodi in dvema izhodoma je
+Lahko imata poljubno število vhodov ali izhodov. V temu članku bomo pisali vhode na levi strani, izhode pa na desni strani pajka (izkaže pa se, da to ne spremeni vezja, le pomaga intuiciji). Kot primer, Z pajek z tremi vhodi in dvema izhodoma je
 
 \begin{center}
   \begin{tikzpicture}
@@ -347,30 +358,45 @@ Lahko imata poljubno število vhodov ali izhodov. V temu članku bomo pisali vho
     \draw (03) to (1);
     \draw (1) to (21);
     \draw (1) to (22);
-    %\end{pgfonlayer}
   \end{tikzpicture}.
 \end{center}
 
-Pajki ustrezajo linearnim preslikavam \cite[stran 39]{Backens}. Definiramo, da Z pajku z \(n\) vhodi in \(m\) izhodi pripada preslikava
+Pajki ustrezajo linearnim preslikavam \cite[poglavje 1.1]{Backens}. Definiramo, da Z pajku z \(n\) vhodi in \(m\) izhodi pripada preslikava
 \begin{align*}
     \ket{0}^{\otimes m} \bra{0}^{\otimes n} + e^{i\alpha}\ket{1}^{\otimes m} \bra{1}^{\otimes n}.
 \end{align*}
-Podobno definiramo X pajek z \(n\) vhodi in \(m\) izhodi kot
+To preslikavo lahko napišemo tudi kot \(2^n\times 2^m\) matriko. Element na mestu \((1,1)\) ustreza \(\ket{0}^{\otimes m} \bra{0}^{\otimes n}\) delu preslikave, element na mestu \((2^n, 2^m)\) pa \(\ket{1}^{\otimes m} \bra{1}^{\otimes n}\) delu preslikave. Če \((n,m)\neq (0,0)\) potem dobimo
+\begin{align*}
+    \begin{bmatrix}
+        1 & 0 & \cdots & 0 \\
+        0 & 0 & \cdots & 0 \\
+        \vdots & \vdots & \ddots & 0 \\
+        0 & 0 & 0 & e^{i\alpha} 
+        \end{bmatrix}.
+\end{align*}
+Pajek brez vhodov ali izhodov z fazo \(\alpha\) pa napišemo kot skalar \(1+e^{i\alpha}\).
+Podobno bi lahko definirali X pajek z \(n\) vhodi in \(m\) izhodi \cite{workingcs} kot
 \begin{align*}
     \ket{+}^{\otimes m} \bra{+}^{\otimes n} + e^{i\alpha}\ket{-}^{\otimes m} \bra{-}^{\otimes n}.
 \end{align*}
+
+To lahko posplošimo in definiramo operator \(\interpret{\cdot}: (D:n\to m)\to (\interpret{D}: \C^{2^n} \to \C^{2^m})\), ki poljubnemu diagramu (z \(n\) vhodi in \(m\) izhodi) priredi linearno preslikavo (\(2^n\times 2^m\) kompleksno matriko).
+
+Na diagramih uporabljamo dve operaciji, tenzorski produkt in pa kompozicijo (oziroma navaden produkt). Tenzorski produkt diagramov ustreza temu, da en diagram položimo nad drugega. Tako če imamo diagrama \(D\) in \(D'\) z \(n\) in \(n'\) vhodi ter \(m\) in \(m'\) izhodi, potem lahko naredimo diagram \(D\otimes D'\) z \(n+n'\) vhodi in \(m+m'\) izhodi. Analogno, kompozicija ustreza da diagram položimo na desno (ter povežemo izhode desnega diagrama z vhodi levega). Tako če imamo diagram \(D:n\to m\) in diagram \(D':m\to k\), lahko definiramo diagram \(D'\circ D: n\to k\), kar ustreza temu, da \(D'\) položimo na desno od \(D\). Velja \(\interpret{D\otimes D'}\defeq \interpret{D} \otimes \interpret{D'}\) in \(\interpret{D\circ D'} \defeq \interpret{D}\circ \interpret{ D'}\).
 
 Iz teh pajkov si lahko definiramo nove konstrukcije. Tako lahko definiramo Hadamardova vrata kot
 \begin{center}
     \begin{tikzpicture}
     \node (0) at (0.00, 0.00) {};
     \node [style=gn] (1) at (1, 0) {\(\frac\pi2\)};
-    \node [style=rn] (2) at (2, 0) {\(\frac\pi2\)};
+    \node [style=gn] (a) at (2,1) {\(-\frac\pi2\)};
+    \node [style=rn] (2) at (2, 0) {};
     \node [style=gn] (3) at (3, 0) {\(\frac\pi2\)};
     \node (4) at (4.00, 0.00) {};
     \draw (0) to (1);
     \draw (1) to (2);
     \draw (2) to (3);
+    \draw (2) to (a);
     \draw (3) to (4);
     \end{tikzpicture}.
 \end{center}
@@ -406,13 +432,22 @@ ekvivalenten diagramu
         \draw (h) to (3,0);
     \end{tikzpicture}.
 \end{center}
+Ta lastnost je dejansko ključna za definicijo hadamardovih vrat ter tudi pokaže zakaj so hadamardova vrata pomembna, saj nam omogočajo menjavo baze (iz Z na X ali obratno). Lahko si tudi ogledamo matriko preslikave. Tako hadamardovim vratom ustreza matrika
+\begin{align*}
+    \frac{1}{\sqrt2}\begin{bmatrix}
+        1&1\\
+        1&-1
+    \end{bmatrix}
+\end{align*}
 
+Tako smo definirali osnovne sestavne elemente ZX-diagramov. Brez operacij nad njimi pa so te diagrami le navadni grafi, nepovezani z kvantno mehaniko ali kvantnimi procesi. Dovoljene operacije podamo kot seznam aksiomov, ki pripadajo ZX-računu.
 \subsection{Aksiomi}
+Za začetek bomo uporabili aksiomatizacijo za splošen ZX-račun podano v \cite[poglavje 2.2]{vilmart}, obstajajo pa tudi nekatere razširitve in drobci, prav tako pa alternativne izbire aksiomov.
+
 Aksiomi ZX diagramov so zelo simetrični. Če neka lastnost velja za diagrame z zelenimi Z pajki, velja tudi, če te pajke spremenimo v rdeče X pajke. Tudi bolj splošno velja: za vsak aksiom obstaja dualni aksiom, kjer so povezave in faze identične, barve pa zamenjamo. Torej lahko zamenjamo tudi barvo pravil, ki vsebujejo mešane pajke (in ne le samo enobarvnih). Dodatno, vsi predstavljeni aksiomi so ekvivalence, torej za njih držijo lastnosti ekvivalenčnih relacij. Posebej je treba poudariti simetričnost: pravila delujejo tudi v obratno smer. Ko aksiom pravi, da lahko sosednje pajke združimo bi prav tako lahko samotarski pajek ločili v več novih (dokler ga lahko z enakim aksiomom združimo nazaj v prvotnega).
 
 Aksiome se ponavadi uporablja kot pravila prepisovanja, podobno kot pri poenostavljanju enačb (le da tukaj poenostavljamo vezja). Tako kot lahko pri enačbah vedno \(1\) zamenjamo z \(\cos(0)\), ne glede na to kje v izrazu se nahaje, lahko tu podgraf zamenjamo z ekvivalentnim podgrafom.
 
-Za lažji pregled, ko je faza pajka enaka \(0\) je ne pišemo v krog; pajek je le pobarvan krog brez števila.
 \subsubsection{Topologija} Prvi in ključni aksiom ZX diagramov je, da lahko povezave med pajki poljubno ukrivimo, s tem pa ne spremenimo pomena vezja.
 Tako, na primer
 \begin{center}
@@ -618,7 +653,8 @@ oziroma
 Kar pa za večino faz ne bo ekvivalentno! Izvorni diagram namreč je ekvivalenten identiteti (za kar potrebujemo še nekaj dodatnih aksiomov), izpeljani pa za recimo \(\alpha = \beta = \frac\pi2\) ni.
 
 Torej si predstavljamo, da so prosti konci togo vpeti v ravnino (ali pa da vsaj ohranijo isto povezavo v nadgrafu, ko uporabimo pravilo).
-\subsubsection{Identiteta}
+% ----------------------------- aksiomi --------------------------------------------------------------------------------
+\subsubsection{Identiteta} \label{identiteta}
 Če imamo pajek z natanko enim vhodom in izhodom, je to vezje ekvivalentno identiti
 \begin{center}
     \begin{tikzpicture}
@@ -633,7 +669,7 @@ Torej si predstavljamo, da so prosti konci togo vpeti v ravnino (ali pa da vsaj 
     \end{tikzpicture}
 \end{center}
 
-\subsubsection{Združitev pajkov}
+\subsubsection{Združitev pajkov} \label{zdruzitev}
 Sosednje pajke iste barve lahko združimo dokler ohranimo isto število skupnih vhodov in izhodov. Pri tem se faze seštejejo.
 \begin{center}
     \begin{tikzpicture}
@@ -690,9 +726,539 @@ lahko prepišemo v
             \draw [bend left=15] (6.center) to (0);
     \end{tikzpicture}.
 \end{center}
+Med pajkoma more biti vsaj ena povezava, pravih vhodov ali izhodov pa je lahko tudi nič.
+
+Aksioma za združitev pajkov in identiteto ustrezata aksiomatizaciji ortonormirane baze \cite[poglavje 5]{coecke_pavlovic_vicary_2013}.
+
+\subsubsection{Izničenje pajkov} \label{iznicenje}
+Povezani pajki določenih baz so ekvivalentni praznemu diagramu. Diagrame oblike
+\begin{center}
+\begin{tikzpicture}
+		\node [style=rn] (0) at (2, 0) {\(-\frac\pi4\)};
+		\node [style=gn] (1) at (0,0) {\(\frac\pi4\)};
+		\draw (0) to (1);
+\end{tikzpicture}
+\end{center}
+lahko preprosto izbrišemo. Prazen diagram ustreza skalarju \(1\), torej je ta diagram ekvivalenten skalarju. To je edini aksiom, ki nam lahko ustvari prazen diagram.
+
+Kot zanimivost, podvojeno verzija tega pravila lahko izpeljemo tudi brez zgornjega pravila \cite[poglavje 3.1]{jeandel_et_al}! Tako je tudi
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (0) at (2, 0) {\(-\frac\pi4\)};
+            \node [style=gn] (1) at (0, 0) {\(\frac\pi4\)};
+            \node [style=rn] (00) at (2, 1.5) {\(-\frac\pi4\)};
+            \node [style=gn] (11) at (0, 1.5) {\(\frac\pi4\)};
+            \draw (0) to (1);
+            \draw (00) to (11);
+    \end{tikzpicture}
+\end{center}
+ekvivalenten skalarju \(1\)
+
+\subsubsection{Bialgebra} \label{bialgebra}
+Prvo izmed pravil, ki izraža močno komplementarnost baz je pravilo bialgebre.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=gn] (0) at (-3, 0) {};
+            \node [style=gn] (1) at (-3, 2) {};
+            \node [style=gn] (2) at (-1, -1) {};
+            \node [style=rn] (3) at (-3, -1) {};
+            \node [style=rn] (4) at (-1, 0) {};
+            \node [style=rn] (5) at (-1, 2) {};
+            \node [style=none] (6) at (-4, 0) {};
+            \node [style=none] (7) at (-4, 2) {};
+            \node [style=none] (8) at (0, 0) {};
+            \node [style=none] (9) at (0, 2) {};
+            \node [style=none] (10) at (1, 1) {\(=\)};
+            \node [style=rn] (11) at (3, 1) {};
+            \node [style=gn] (12) at (5, 1) {};
+            \node [style=none] (13) at (2, 0) {};
+            \node [style=none] (14) at (2, 2) {};
+            \node [style=none] (15) at (6, 0) {};
+            \node [style=none] (16) at (6, 2) {};
+            \draw (6.center) to (0);
+            \draw (7.center) to (1);
+            \draw (0) to (4);
+            \draw (4) to (8.center);
+            \draw (1) to (5);
+            \draw (5) to (9.center);
+            \draw (3) to (2);
+            \draw (0) to (5);
+            \draw (1) to (4);
+            \draw (11) to (12);
+            \draw (12) to (15.center);
+            \draw (12) to (16.center);
+            \draw (11) to (14.center);
+            \draw (11) to (13.center);
+    \end{tikzpicture}    
+\end{center}
+
+\subsubsection{Pravilo kopiranja} \label{kopiranje}
+Drugo pravilo močne komplementarnosti baz nam omogoča, da vhod ``kopiramo''. Izvorna informacija prihaja iz enega rdečega pajka naprej, s tem pravilom pa je to ekvivalentno dvem pajkom
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (0) at (-3, -1) {};
+            \node [style=rn] (1) at (-3, 1) {};
+            \node [style=gn] (2) at (-2, -1) {};
+            \node [style=gn] (3) at (-2, 1) {};
+            \node [style=none] (4) at (-1, 0.25) {};
+            \node [style=none] (5) at (-1, 1.75) {};
+            \node [style=none] (7) at (0, 0) {\(=\)};
+            \node [style=rn] (8) at (2, -1) {};
+            \node [style=rn] (9) at (2, 1) {};
+            \node [style=none] (10) at (5, -1) {};
+            \node [style=none] (11) at (5, 1) {};
+            \draw (0) to (2);
+            \draw (1) to (3);
+            \draw (3) to (4.center);
+            \draw (3) to (5.center);
+            \draw (8) to (10.center);
+            \draw (9) to (11.center);
+    \end{tikzpicture}      
+\end{center}
+
+\subsubsection{Hadamardova dekompozicija} \label{had-dekomp}
+Lahko naredimo dekompozicijo hadamardovih vrat z uporabo \(\frac\pi2\) rotacij.
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (-5, 0) {};
+		\node [style=none] (1) at (-3, 0) {};
+		\node [style=had] (2) at (-4, 0) {};
+		\node [style=none] (4) at (-1.5, 0) {\(=\)};
+		\node [style=none] (5) at (0, 0) {};
+		\node [style=none] (6) at (5, 0) {};
+		\node [style=rn] (7) at (2.5, 0) {};
+		\node [style=gn] (8) at (1, 0) {\(\frac\pi2\)};
+		\node [style=gn] (9) at (4, 0) {\(\frac\pi2\)};
+		\node [style=gn] (10) at (1.75, 1) {\(-\frac\pi2\)};
+		\draw (0.center) to (2);
+		\draw (2) to (1.center);
+		\draw (5.center) to (8);
+		\draw (8) to (7);
+		\draw (7) to (9);
+		\draw (9) to (6.center);
+		\draw (7) to (10);
+    \end{tikzpicture}    
+\end{center}
+
+\subsubsection{Hadamardova menjava barv} \label{had-menjava}
+Hadamardova vrata lahko uporabimo za menjavo barve pajka tako, da na vse njegove vhode in izhode dodamo hadamardova vrata ter zamenjamo barvo.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=none] (0) at (-8, -1.5) {};
+            \node [style=none] (1) at (-8, 1.5) {};
+            \node [style=none] (2) at (-2, 1.5) {};
+            \node [style=none] (3) at (-2, -1.5) {};
+            \node [style=rn] (5) at (-5, 0) {\(\alpha\)};
+            \node [style=had] (6) at (-7, -1.5) {};
+            \node [style=had] (7) at (-7, 1.5) {};
+            \node [style=had] (8) at (-3, 1.5) {};
+            \node [style=had] (9) at (-3, -1.5) {};
+            \node [style=none] (11) at (-0.5, 0) {\(=\)};
+            \node [style=gn] (13) at (3.5, 0) {\(\alpha\)};
+            \node [style=none] (14) at (6, 1.5) {};
+            \node [style=none] (15) at (6, -1.5) {};
+            \node [style=none] (16) at (1, -1.5) {};
+            \node [style=none] (17) at (1, 1.5) {};
+            \node [style=none] (18) at (-2.25, 0) {\(\rvdots\)};
+            \node [style=none] (19) at (5.5, 0) {\(\rvdots\)};
+            \node [style=none] (20) at (-7.5, 0) {\(\rvdots\)};
+            \node [style=none] (21) at (1.5, 0) {\(\rvdots\)};
+            \draw (0.center) to (6);
+            \draw (1.center) to (7);
+            \draw (8) to (2.center);
+            \draw (9) to (3.center);
+            \draw [bend right, looseness=1.25] (13) to (17.center);
+            \draw [bend left, looseness=1.25] (13) to (16.center);
+            \draw [bend right, looseness=1.25] (13) to (15.center);
+            \draw [bend left, looseness=1.25] (13) to (14.center);
+            \draw [bend right, looseness=1.25] (6) to (5);
+            \draw [bend left, looseness=1.25] (7) to (5);
+            \draw [bend left=15, looseness=1.25] (9) to (5);
+            \draw [bend right, looseness=1.25] (8) to (5);
+    \end{tikzpicture}    
+\end{center}
+
+Ta aksiom karakterizira Hadamardova vrata glede na to, kako spreminja pajke oziroma kako vpliva na preostanek diagrama, med tem ko prejšnji aksiom karakterizira vrata glede na to kaj vrata so na elementaren način, neodvisno od preostanka diagrama. Prejšnji opisuje kaj Hadamardova so, ta pa kaj naredijo.
+
+\subsubsection{Eulerjevi koti} \label{euler}
+Zadnji aksiom je tudi najtežji in tudi najbolj nestandarden, vendar potreben za določene zaželjene lastnosti lastnosti, še posebaj polnost (če imamo par diagramov, ki predstavljata isti kvantni proces sta tudi ekvivalentna - lahko enega pretvorimo v drugega z uporabo aksiomov). 
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=none] (0) at (-4, 0) {};
+            \node [style=gn] (1) at (-3, 0) {\(\alpha_1\)};
+            \node [style=gn] (2) at (-1, 0) {\(\alpha_3\)};
+            \node [style=rn] (3) at (-2, 0) {\(\alpha_2\)};
+            \node [style=none] (4) at (0, 0) {};
+            \node [style=none] (5) at (1, 0) {\(=\)};
+            \node [style=none] (6) at (2, 0) {};
+            \node [style=none] (7) at (6, 0) {};
+            \node [style=gn] (8) at (4, 0) {\(\beta_2\)};
+            \node [style=rn] (9) at (5, 0) {\(\beta_3\)};
+            \node [style=rn] (10) at (3, 0) {\(\beta_1\)};
+            \node [style=rn] (11) at (2, 2) {};
+            \node [style=gn] (12) at (3, 2) {};
+            \node [style=rn] (13) at (5, 2) {\(\pi\)};
+            \node [style=gn] (14) at (6, 2) {\(\gamma\)};
+            \draw (0.center) to (1);
+            \draw (1) to (3);
+            \draw (3) to (2);
+            \draw (2) to (4.center);
+            \draw [bend left=60, looseness=1.25] (11) to (12);
+            \draw [bend right=60, looseness=1.25] (11) to (12);
+            \draw (11) to (12);
+            \draw (13) to (14);
+            \draw (6.center) to (10);
+            \draw (10) to (8);
+            \draw (8) to (9);
+            \draw (9) to (7.center);
+    \end{tikzpicture}    
+\end{center}
+Na levi strani enakosti imamo dane poljubne \(\alpha_1,\alpha_2,\alpha_3\), na desni strani pa moremo vrednosti izračunati. Definiramo si nekaj pomožnih vrednosti.
+\begin{align*}
+    x^+ \defeq \frac{\alpha_1 + \alpha_3}{2}\\
+    x^- \defeq x^+-\alpha_3\\
+    z \defeq \cos\left(\frac{\alpha_2}{2}\right)\cos\left(x^+\right) + i\sin\left(\frac{\alpha_2}{2}\right)\cos\left(x^-\right)\\
+    z' \defeq \cos\left(\frac{\alpha_2}{2}\right)\sin\left(x^+\right) - i\sin\left(\frac{\alpha_2}{2}\right)\sin\left(x^-\right)
+\end{align*}
+Z njihovo pomočjo lahko izračunamo ostale parametre
+\begin{align*}
+    \beta_1 = \arg z + \arg z'\\
+    \beta_2 = 2\arg\left(i+\left\lvert\frac{z}{z'}\right\rvert\right)\\
+    \beta_3 = \arg z - \arg z'\\
+    \gamma = x^+-\arg z + \frac{\alpha_2-\beta_2}{2}
+\end{align*}
+Po dogovoru vzamemo tako funkcijo \(\arg\), da \(\arg(0)=0\). Če je \(z'=0\) pa definiramo \(\beta_2 = 0\).
+
+Motivacija za ta aksiom prihaja iz Eulerjevih kotov poznanih iz klasične analize. Te nam omogočijo dekompozicijo poljubne rotacije kot kompozicijo rotacij okoli standardnih koordinatnih osi. Enako lahko povemo v jeziku linearne algebre: poljubno rotacijsko matriko \(R\) lahko napišemo kot \(R=X(\alpha)Y(\beta)Z(\gamma)\). Ta izrek ima v kvantni mehaniki pomembno posledico, namreč omogoča nam da lahko zapišemo poljuben unitarni operator enega kubita kot kompozicijo rotacij okoli \(Z,X,Z\) ali okoli \(X,Z,X\), ta aksiom pa nam definira, da sta dve dekompoziciji istega unitarnega operatorja ekvivalentna.
+
+Ta aksiom je poseben tudi v tem, da so ostali aksiomi linearni, ta pa je nelinearen. To vidimo že iz tega, da faze dobljenih pajkov niso linearne kombinacije ostalih faz, pač pa tukaj uporabimo tudi nelinearne kotne funkcije ter argument. Vendar pa je prav zato potreben za polnost jezika, saj je namreč znano da različica ZX-računa brez nelinearnega aksioma ne more biti polna \cite[izrek 6.1]{jeandeldiagrammatic}.
 
 \subsection{Primeri}
+Za lažje razumevanje podanih aksiomov si poglejmo nekaj primerov in izrekov v ZX-računu, ki jih lahko dokažemo.
+\subsubsection{Hadamard je sam sebi inverz}
+Inverz diagrama \(D:n\to n\) je diagram \(D^{-1}:n\to n\), da \(D\circ D^{-1} = D^{-1}\circ D = \bigotimes{i=1}^n\id\). Tukaj je identiteta \(\id\) samo povezava od vhoda do izhoda brez pajka; diagramu ustreza identična matrika \(\interpret{\bigotimes_{i=1}^n\id} = I = (\delta_{ij})_{i,j=1,\ldots 2^n}\). Že kot aksiom imamo podano to, da je pajek brez faze ekvivalenten identiteti, kar posledično pomeni, da je sam svoj inverz. Podobno velja tudi za Hadamardova vrata \(H\). Ta niso ekvivalentna identiteti, velja pa, da so svoj inverz \(H\circ H = \id\).
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=none] (0) at (-1, 0) {};
+            \node [style=none] (1) at (2, 0) {};
+            \node [style=had] (2) at (0, 0) {};
+            \node [style=had] (3) at (1, 0) {};
+            \draw (0.center) to (2);
+            \draw (2) to (3);
+            \draw (3) to (1.center);
+    \end{tikzpicture}    
+\end{center}
+Uporabimo aksiom o identiteti \ref{identiteta}, ki pove, da je (prazna) povezava ekvivalentna povezavi z pajkom, ki ima fazo 0. To lahko uporabimo na povezavi med Hadamardovima vratoma, da vstavimo nov pajek in dobimo ekvivalentno vezje.
+\begin{center}
+\begin{tikzpicture}
+		\node [style=none] (0) at (-1, 0) {};
+		\node [style=none] (1) at (3, 0) {};
+		\node [style=had] (2) at (0, 0) {};
+		\node [style=had] (3) at (2, 0) {};
+		\node [style=gn] (4) at (1, 0) {};
+		\draw (0.center) to (2);
+		\draw (3) to (1.center);
+		\draw (2) to (4);
+		\draw (4) to (3);
+\end{tikzpicture}
+\end{center}
+Temu sledi uporaba Hadamardove menjave barv \ref{had-menjava}.
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (0,0) {};
+        \node [style=rn] (1) at (1,0) {};
+        \node [style=none] (2) at (2,0) {};
+        \draw (0) to (1);
+        \draw (1) to (2);
+    \end{tikzpicture}
+\end{center}
+Nazadnje spet uporabimo aksiom o identiteti \ref{identiteta}, kar nam poda identično preslikavo.
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (0,0) {};
+        \node [style=none] (2) at (2,0) {};
+        \draw (0) to (2);
+    \end{tikzpicture}
+\end{center}
+Tako smo dokazali, da so Hadamardova vrata sama svoj inverz. Ta izrek lahko uporabimo v naslednjem primeru.
+\subsubsection{Hadamard menja barve}
+V uvodu v ZX-račun smo v omenili, da velja
+\begin{center}
+    \begin{tikzpicture}
+        \node (0) at (0, 0) {};
+        \node [style=had] (h) at (1,0) {};
+        \node [style=gn] (g) at (2,0) {\(\alpha\)};
+        \node (0a) at (4, 0) {};
+        \node (=) at (3.5,0) {\(=\)}; 
+        \node [style=had] (ha) at (6,0) {};
+        \node [style=rn] (ga) at (5,0) {\(\alpha\)};
+        \draw (0) to (h);
+        \draw (h) to (g);
+        \draw (g) to (3,0);
+        \draw (0a) to (ga);
+        \draw (ha) to (ga);
+        \draw (ha) to (7,0);
+    \end{tikzpicture}.
+\end{center}
+Začnemo z levo stranjo enakosti in na njej uporabimo prejšnji izrek.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=none] (0) at (-1, 0) {};
+            \node [style=had] (2) at (0, 0) {};
+            \node [style=gn] (4) at (1, 0) {\(\alpha\)};
+            \node [style=had] (5) at (2, 0) {};
+            \node [style=had] (6) at (3, 0) {};
+            \node [style=none] (7) at (4, 0) {};
+            \draw (0.center) to (2);
+            \draw (2) to (4);
+            \draw (4) to (5);
+            \draw (5) to (6);
+            \draw (6) to (7.center);
+    \end{tikzpicture}    
+\end{center}
+Tako smo dobili diagram, na katerem lahko uporabimo Hadamardovo menjavo barv \ref{had-menjava}.
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (0,0) {};
+        \node [style=rn] (1) at (1,0) {\(\alpha\)};
+        \node [style=had] (2) at (2,0) {};
+        \node [style=none] (3) at (3,0) {};
+        \draw (0) to (1);
+        \draw (1) to (2);
+        \draw (2) to (3);
+    \end{tikzpicture}
+\end{center}
+\subsubsection{Hopfov zakon} \label{hopf}
+Hopfov zakon je teoretično zanimiv, saj pove, da je komplementarnost posledica močne komplementarnosti.
+\begin{center}
+\begin{tikzpicture}
+		\node [style=rn] (0) at (-0.5, 0) {};
+		\node [style=rn] (1) at (-1, -1.5) {};
+		\node [style=rn] (2) at (1, -1.5) {};
+		\node [style=gn] (3) at (1.5, 0) {};
+		\node [style=gn] (4) at (0, -1.5) {};
+		\node [style=gn] (5) at (2, -1.5) {};
+		\node [style=none] (6) at (-2, 0) {};
+		\node [style=none] (7) at (3, 0) {};
+		\node [style=none] (8) at (4, 0) {\(=\)};
+		\node [style=none] (9) at (5, 0) {};
+		\node [style=none] (10) at (8, 0) {};
+		\node [style=rn] (11) at (6, 0) {};
+		\node [style=gn] (12) at (7, 0) {};
+		\draw [bend left, looseness=1.25] (0) to (3);
+		\draw (1) to (4);
+		\draw (2) to (5);
+		\draw [bend right, looseness=1.25] (0) to (3);
+		\draw (6.center) to (0);
+		\draw (3) to (7.center);
+		\draw (9.center) to (11);
+		\draw (10.center) to (12);
+\end{tikzpicture}
+\end{center}
+Za induicijo sledimo toku podatkov. Na levi strani enačbe imamo povezavo od X pajka do Z pajka, na desni strani enačbe pa vhod pride do X pajka, se pozabi, Z pajek pa se na novo (neodvisno) izmisli nove podatke, ter jih pošlje naprej. To je posledica tega, da sta X in Z pajka v različni bazi - če najprej izmerimo spin v X smeri in potem v Z smeri smo izgubili prvotno informacijo \cite[definicija 8.27]{coecke_kissinger_2017}. V praksi pa nam dovoli, da razbijemo povezan diagram na nepovezane dele in ga tako poenostavimo.
+
+Pravilo je posledica aksioma bialgebre \cite[poglavje 3.2.3]{Backens}. Začnemo na levi strani enakosti ter dvakrat uporabimo aksiom o identiteti \ref{identiteta}.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (0) at (-0.5, 0) {};
+            \node [style=rn] (1) at (-1, -1.5) {};
+            \node [style=rn] (2) at (1, -1.5) {};
+            \node [style=gn] (3) at (1.5, 0) {};
+            \node [style=gn] (4) at (0, -1.5) {};
+            \node [style=gn] (5) at (2, -1.5) {};
+            \node [style=none] (6) at (-2, 0) {};
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=rn] (8) at (1.5, 1) {};
+            \node [style=gn] (9) at (-0.5, 1) {};
+            \draw (1) to (4);
+            \draw (2) to (5);
+            \draw (0) to (3);
+            \draw (6.center) to (0);
+            \draw (3) to (7.center);
+            \draw (9) to (0);
+            \draw (9) to (8);
+            \draw (8) to (3);
+    \end{tikzpicture}    
+\end{center}
+Sedaj le topološko preuredimo graf, da ima bolj znano obliko
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (0) at (-0.5, 0) {};
+            \node [style=rn] (1) at (-1, -1.5) {};
+            \node [style=rn] (2) at (1, -1.5) {};
+            \node [style=gn] (3) at (1.5, 0) {};
+            \node [style=gn] (4) at (0, -1.5) {};
+            \node [style=gn] (5) at (2, -1.5) {};
+            \node [style=none] (6) at (-2, 0) {};
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=rn] (8) at (-0.5, 1) {};
+            \node [style=gn] (9) at (1.5, 1) {};
+            \draw (1) to (4);
+            \draw (2) to (5);
+            \draw [bend right=15] (0) to (3);
+            \draw (6.center) to (0);
+            \draw (3) to (7.center);
+            \draw (9) to (0);
+            \draw [bend left=345] (9) to (8);
+            \draw (8) to (3);
+    \end{tikzpicture}    
+\end{center}
+Uporabimo aksiom o združitvi \ref{zdruzitev} v obratno smer - že združena pajka (oba z fazo \(0\)) ločimo narazen. Novi pajek ne bo imel vhodov ali izhodov, le povezavo do drugega pajka, katerega je bil del.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (0) at (-0.5, 0) {};
+            \node [style=rn] (1) at (-1, -1.5) {};
+            \node [style=rn] (2) at (1, -1.5) {};
+            \node [style=gn] (3) at (1.5, 0) {};
+            \node [style=gn] (4) at (0, -1.5) {};
+            \node [style=gn] (5) at (2, -1.5) {};
+            \node [style=none] (6) at (-2, 0) {};
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=rn] (8) at (-0.5, 1) {};
+            \node [style=gn] (9) at (1.5, 1) {};
+            \node [style=gn] (10) at (3, 1) {};
+            \node [style=rn] (11) at (-2, 1) {};
+            \draw (1) to (4);
+            \draw (2) to (5);
+            \draw [bend right=15] (0) to (3);
+            \draw (6.center) to (0);
+            \draw (3) to (7.center);
+            \draw (9) to (0);
+            \draw [bend left=345] (9) to (8);
+            \draw (8) to (3);
+            \draw (11) to (8);
+            \draw (9) to (10);
+    \end{tikzpicture}    
+\end{center}
+V temu diagramu pa prepoznamo bialgebro \ref{bialgebra}.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (2) at (0, -1) {};
+            \node [style=gn] (5) at (1, -1) {};
+            \node [style=none] (6) at (-2, 0) {};
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=gn] (8) at (-0.5, 0) {};
+            \node [style=rn] (9) at (1.5, 0) {};
+            \node [style=rn] (10) at (-1.5, 1) {};
+            \node [style=gn] (11) at (2.5, 1) {};
+            \draw (2) to (5);
+            \draw (6.center) to (8);
+            \draw (8) to (9);
+            \draw (9) to (7.center);
+            \draw [bend left=15, looseness=0.75] (10) to (8);
+            \draw [bend right=15] (11) to (9);
+    \end{tikzpicture}    
+\end{center}
+Diagram preuredimo
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=rn] (2) at (-2, 1) {};
+            \node [style=gn] (5) at (-0.5, 1) {};
+            \node [style=none] (6) at (0.5, -0.75) {};
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=gn] (8) at (-0.5, 0) {};
+            \node [style=rn] (9) at (1.5, 0) {};
+            \node [style=rn] (10) at (-2, 0) {};
+            \node [style=gn] (11) at (2.5, 1) {};
+            \node [style=none] (12) at (-2, -1) {};
+            \draw (2) to (5);
+            \draw [in=-45, out=90, looseness=0.75] (6.center) to (8);
+            \draw [bend left=15] (8) to (9);
+            \draw (9) to (7.center);
+            \draw (10) to (8);
+            \draw [bend right=15] (11) to (9);
+            \draw [in=-90, out=0, looseness=0.75] (12.center) to (6.center);
+    \end{tikzpicture}
+\end{center}
+in uporabimo pravilo kopiranja \ref{kopiranje}.
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=none] (7) at (3, 0) {};
+            \node [style=rn] (9) at (1.5, 0) {};
+            \node [style=gn] (11) at (2.5, 1) {};
+            \node [style=none] (12) at (-2, 0) {};
+            \node [style=rn] (13) at (-1, 0) {};
+            \node [style=rn] (14) at (0, 0) {};
+            \draw (9) to (7.center);
+            \draw [bend right=15] (11) to (9);
+            \draw (12.center) to (13);
+            \draw (14) to (9);
+    \end{tikzpicture}    
+\end{center}
+Kar lahko združimo \ref{zdruzitev} in poenostavimo z izbrisom identitet \ref{identiteta}, kar dokaže lastnost.
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (0,0) {};
+        \node [style=rn] (1) at (1,0) {};
+        \node [style=gn] (2) at (2,0) {};
+        \node [style=none] (3) at (3,0) {};
+        \draw (0) to (1);
+        \draw (2) to (3);
+    \end{tikzpicture}
+\end{center}
+\subsection{Lastnosti}
+Da upravičimo uporabo ZX-računa želimo nekaj dobrih lastnosti. Že prej smo omenili polnost jezika, obstaja pa še nekaj ostalih temelnjih lastnosti, katerih si želimo. Najbolj osnovna lastnost je pravilnost.
+\subsubsection{Pravilnost}
+\begin{izrek}[Pravilnost]
+    Če lahko diagram \(D_1:n\to m\) prepišemo v \(D_2:n\to m\) z uporabo aksiomov ZX-računa, potem \(\interpret{D_1} = \interpret{D_2}\).
+\end{izrek}
+Ta izrek enostavno preverimo tako, da razpišemo leve in desne strani enakosti podanih v aksiomih ter vidimo, da se ujemajo \cite[izrek 2.16]{Coecke_2011}. Bolj težavna je le topološka ekvivalenca grafov (specifično to, da lahko vhode in izhode vozlišč menjamo), saj ne moremo opazovati le enega elementa v izolaciji, pač pa interakcije med različnimi elementi. Še vedno bi to lahko dokazali z razpisovanjem, bolj pogosto pa se uporabi to, da model prevedemo v jezik kategorij \cite[izrek 4.24]{Coecke_2011}.
+
+Tukaj velja še omeniti skalarne grafe. To so grafi brez vhodov in izhodov, prisotni v mnogih aksiomih, na primer pravilu kopiranja \ref{kopiranje}. Mnogi pristopi v aksiomih izpustijo skalarne grafe, vendar v tem primeru pravilnost ne velja. To sicer nima velikega praktičnega pomena, saj pravilnost še vedno velja do skalarja natančno, zaradi unitarnosti kvantnih preslikav pa ne izgubimo veliko informacij zaradi skalarjev. V tem primeru delamo z ekvivalenčnimi razredi matrik.
+\subsubsection{Polnost}
+\begin{izrek}[Polnost]
+    Če imamo dva diagrama \(D_1:n\to m\) in \(D_2:n\to m\), za katera velja \(\interpret{D_1} = \interpret{D_2}\), potem lahko \(D_1\) pretvorimo v \(D_2\) (ali obratno) z uporabo aksiomov.
+\end{izrek}
+Že od samega začetka uvedbe ZX-računa je bila polnost najbolj iskana lastnost jezika. Dovoli namreč, da lahko vsako lastnost, ki drži v Diracovem formalizmu, dokažemo tudi v ZX računu. Prvotne izbire aksiomov niso bile polne, kar je omejilo ekspresivnost jezika in možnost njegove uporabe. Večina formalizacij je potrebovala nekakšen nelinearen aksiom, pri nas pa za to poskrbi aksiom Eulerjevih kotov \ref{euler}. Že pri zgodnjih rezultatih so sumili, da je podoben aksiom potreben \cite{Schr_der_de_Witt_2014}, vendar ni bilo znano, ali je zadosten. Kasneje pa so dokazali, da je bila to edina večja prepreka, dokaz polnosti pa je potekal preko podobnega grafičnega jezika, ZW-račun, za katerega je bila polnost že znana \cite{kangfengng}.
+
+\subsubsection{Univerzalnost}
+\begin{izrek}[Univerzalnost]
+    Za poljubno linearno preslikavo kubitov \(A:\C^{2^n}\to \C^{2^m}\), ki preslika \(n\) kubitov v \(m\) kubitov, obstaja ZX diagram \(D:n\to m\) za katerega \(\interpret{D}=A\)
+\end{izrek}
+\proof
+Vemo, da lahko poljubno unitarno preslikavo \(n\) kubitov napišemo z uporabo cNOT vrat ter eno kubitnih unitarnih preslikav \cite[Izrek 5.26]{mathforqm}. Če to naredimo, je potreben le opis kako prevesti cNOT vrata v ZX račun in kako prevesti splošno enokubitno unitarno preslikavo v ZX račun. Vemo, da cNOT vratom pripada matrika
+\begin{align*}
+    \begin{bmatrix}
+        1&0&0&0\\
+        0&1&0&0\\
+        0&0&0&1\\
+        0&0&1&0
+    \end{bmatrix}.
+\end{align*}
+Interpretacija diagrama
+\begin{center}
+    \begin{tikzpicture}
+            \node [style=gn] (0) at (0, 1) {};
+            \node [style=rn] (1) at (0, 0) {};
+            \node [style=none] (2) at (-1, 1) {};
+            \node [style=none] (3) at (-1, 0) {};
+            \node [style=none] (4) at (1, 1) {};
+            \node [style=none] (5) at (1, 0) {};
+            \draw (2.center) to (0);
+            \draw (0) to (4.center);
+            \draw (3.center) to (1);
+            \draw (1) to (5.center);
+            \draw (0) to (1);
+    \end{tikzpicture}  
+\end{center}
+pa je ravno ta matrika. Poljubno unitarno preslikavo enega kubita pa lahko napišemo kot kompozitum Eulerjevih kotov \cite[Izrek 5.11]{mathforqm}. Pajki sami pa po definiciji ustrezajo rotacijam okoli X in Z osi. Torej lahko poljubno unitarno preslikavo napišemo kot
+\begin{center}
+    \begin{tikzpicture}
+        \node [style=none] (0) at (0,0) {};
+        \node [style=gn] (1) at (1,0) {\(\alpha\)};
+        \node [style=rn] (2) at (2,0) {\(\beta\)};
+        \node [style=gn] (3) at (3,0) {\(\gamma\)};
+        \node [style=none] (4) at (4,0) {};
+        \draw (0) to (1) to (2) to (3) to (4);
+    \end{tikzpicture}.
+\end{center}
+Sedaj imamo univerzalnost za preslikave \(n\) kubitov v \(n\) kubitov. Kvantna stanja dobimo kot sliko takšne preslikave, za poljubno željeno kvantno stanje \(n+m\) kubitov po univerzalnosti obstaja ZX diagram, ki vhod \(n+m\) zelenih pajkov preslika v to stanje. Diagram, ki to predstavlja je \(n+m\) zelenih pajkov, ki vodijo v preostanek diagrama, ven iz diagrama pa vodi \(n+m\) povezav. Zaradi topološke ekvivalence grafov pa ni razlike med \(n+m\) izhodov ter \(n\) vhodov in \(m\) izhodov, saj lahko \(n\) izhodnih povezav prestavimo, da iz diagrama izhajajo na levo. Tako pa dobimo diagram, ki sprejme \(n\) kubitov, odda pa jih \(m\), predstavlja pa poljubno kvantno preslikavo, kar dokaže univerzalnost \cite[Izrek 2.18]{Coecke_2011}. \endproof
+% NOTE še za n->m namesto n->n !!!
+
+Izrek o univerzalnosti nam pove, da so diagrami dovolj ekspresivni in lahko opišejo poljubno transformacijo kubitov. Izrek o polnosti pa nam pove, da niso \emph{preveč} ekspresivni in bi lahko neko transformacijo opisali na več neekvivalentnih načinov. Če združimo izreka skupaj dobimo, da lahko vsako kvantno transformacijo napišemo na natanko en način, do pravil prepisovanja natančno.
+
 \subsection{Drobci}
+Pogosto omejimo faze, ki jih lahko uporabimo. Če v fazah pajkov dovolimo le večkratnike \(\frac\pi2\) imenujemo to Cliffordov drobec ali \(frac\pi2\) drobec. Če dovolimo \(\frac\pi4\) imenujemo to Clifford+T drobec.
 \subsection{Kategorična slika}
 \subsection{Dodatki}
 \section{Kvantna mehanika z grafičnimi vezji}
