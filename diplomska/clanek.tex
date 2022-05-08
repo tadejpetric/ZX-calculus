@@ -71,6 +71,7 @@
 \newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\Bias}{\mathrm{Bias}}
 \renewcommand{\phi}{\varphi}
+\newcommand{\tranp}{\top}
 % matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
 % \DeclareMathOperator{\conv}{conv}
 % na razpolago so naslednja matematična okolja, ki jih kličemo s parom
@@ -252,28 +253,61 @@ Pomembni so še lastni vektorji in projekcije: \(\ket{\psi}\) je lastni vektor z
 Za sestavljanje novih Hilbertovih prostorov iz starih nam bo služil tenzorski produkt. Ta nam bo omogočil, da združimo opis dveh kvantnih delcev v en sam sistem. Najprej definiramo tenzorski produkt kot preslikava
 \begin{align*}
     \ket\varphi \otimes \ket\psi : \Hb_1 \times \Hb_2 &\to \mathbb C\\
-    (u,v) &\mapsto \braket{u}{\varphi}_1 \braket{v}{\psi}_2.
+    (u,v) &\mapsto \braket{u}{\varphi} \braket{v}{\psi}.
 \end{align*}
-Linearna ogrinjača takih vektorjev sestavi vektorski prostor \(\Hb_1 \otimes \Hb_2\). Tenzorski produkt večih prostorov naredimo induktivno, najprej tenzorski produkt prvih dveh, dobljenega tenzorsko množimo s tretjim in tako naprej. Prav tako za elemente. Za to nam bo prav prišla oznaka
+Linearna ogrinjača takih vektorjev sestavi vektorski prostor \(\Hb_1 \otimes \Hb_2\). Tenzorskemu produktu ustreza lepljenje. Če pišemo po komponentah in \(\ket\varphi\in\C^n\) ter \(\ket\psi\in\C^m\), potem bo tenzorski produkt teh dveh prostorov izomorfen \(\C^{n+m}\), \(\ket\varphi\otimes\ket\psi\) pa bo ustrezal vektor, ki ima prvih \(n\) komponent enakih kot \(\ket\varphi\), zadnjih \(m\) komponent pa enakih kot \(\ket\psi\). Podobno velja tudi v prostoru preslikav, kjer dobimo bločno matriko seštetih dimenzij.
+\begin{align*}
+    A\in \C^{n\times n}, B\in\C^{m\times m}\\
+    A\otimes B = \begin{bmatrix}
+        A&0\\
+        0&B
+    \end{bmatrix}\in \C^{(n+m)\times (n+m)}
+\end{align*}
+Tenzorski produkt večih prostorov naredimo induktivno, najprej tenzorski produkt prvih dveh, dobljenega tenzorsko množimo s tretjim in tako naprej. Prav tako za elemente. Za to nam bo prav prišla oznaka
 \begin{align*}
     \ket{\varphi}^{\otimes n} = \bigotimes_{j=1}^n \ket\varphi.
 \end{align*}
+
 \subsection{Von Neumannova slika}
 \subsubsection{Kvantna stanja in opazljivke}
 Kvantna stanja so elementi Hilbertovega prostora \(\ket\psi\in\Hb\), za katere velja \(\norm{\ket\psi} = 1\). Opazljivka je merljiva količina kvantnega sistema (na primer hitrost ali pozicija). Predstavimo jo z sebi-adjungiranim operatorjem \(\Hb\). Definiramo oznako
 \begin{align*}
     \ev{A}_\psi = \braket{\psi}{A\psi},
 \end{align*}
-ki jo imenujemo pričakovana vrednost opazljivke \(A\) v stanju \(\ket\psi\).
+ki jo imenujemo pričakovana vrednost opazljivke \(A\) v stanju \(\ket\psi\). Če so \(e_j\) lastni vektorji \(A\) in \(\lambda_j\) njihove lastne vrednosti lahko pričakovano vrednost razpišemo po lastni bazi
+\begin{align*}
+    \ev{A}_\psi = \sum_j\lambda_j\lvert \braket{\psi}{e_j}\rvert^2.
+\end{align*}
 \subsubsection{Meritve}
 V kvantnih sistemih lahko izmerimo opazljivke. Možni rezultati meritev so točno lastne vrednosti operatorja, ki predstavlja opazljivko. Rečemo da je verjetnost \(P_\psi(\lambda)\), da za kvantni sistem, ki je v stanju \(\ket\psi\) dobimo po meritvi opazljivke \(A\) lastno vrednost \(\lambda\) točno 
 \begin{align*}
     P_\psi(\lambda) = \norm{P_\lambda \ket\psi}^2,
 \end{align*}
-kjer je \(P_\lambda\) projekcija na lastni podprostor z lastno vrednostjo \(\lambda\).
+kjer je \(P_\lambda\) projekcija na lastni podprostor z lastno vrednostjo \(\lambda\) \cite[Poglavje 2.3.1]{mathforqm}.
+
+\begin{izrek}
+    Če je sistem pripravljen v stanju \(\ket\psi \in \Hb\) potem je verjetnost, da izmerimo stanje \(\ket\varphi \in Bh\) enaka \(\lvert \braket{\varphi}{\psi}\rvert^2\).
+\end{izrek}
+\begin{proof}
+    Opazljivka za preverjanje, če je sistem v stanju \(\varphi\) je kar projekcija \(P_\varphi = \ket\varphi \bra\varphi\). Ima lastno vrednost \(\lambda=1\) za lastni vektor \(\ket\varphi\), torej je projekcija na lastni podprostor tudi \(P_\varphi\).
+    \begin{align*}
+        P_psi (\lambda) &= P_\psi(1) =\norm{P_1\ket\psi}^2 = \norm{P_\varphi\ket\psi}^2\\
+                        &= \norm{\ket\varphi\braket{\varphi}{\psi}}^2 = \lvert \braket{\varphi}{\psi}\rvert^2,
+    \end{align*}
+    saj \(\norm{\ket\varphi} = 1\).
+\end{proof}
+
+Če izmerimo stanje \(\ket\psi\) za opazljivko \(A\) ter izmerimo lastno vrednost \(\lambda\), potem se stanje \(\ket\psi\) po meritvi spremeni v
+\begin{align*}
+    \frac{P_\lambda \ket\psi}{\norm{P_\lambda\ket\psi}}.
+\end{align*}
+Ta pojav je znan kot kolaps valovne funkcije, saj se pogosto (zaradi zgodovinskih razlogov) stanju \(\psi\) pravi valovna funkcija. Tudi, če smo imeli prej stanje, ki je linearna kombinacija večih vektorjev iz različnih lastnih podprostorov se bo z meritvijo stanje spremenilo in ne bo več linearna kombinacija, pač pa samo element enega. V enostavnem primeru, ko lastne podprostore napenja natanko vektor, če izmerimo \(\ket\psi\), naš vektor postane \(\ket\psi\), čeprav je bil prej lahko linearna kombinacija večih vektorjev. Po prejšnjem izreku pa imamo višje možnosti izmeriti bližnje lastne podprostore, povprečje pripadajočih lastnih vrednosti pa je natanko pričakovana vrednost \(\ev{A}_\psi\).
+
+V širši javnosti je tu popularen še miselni eksperiment Schrödingerjeve mačke. Opisuje škatlo, v kateri je mačka ter steklenička strupa, ki jo lahko razlije Geigerjev števec (kar da kvantno naravo eksperimentu). Meritev tu predstavlja to, da odpremo škatlo in preverimo, če je mačka še živa. Pred meritvijo pa tega ne vemo, in lahko rečemo, da je mačka \emph{hkrati} živa in mrtva, po meritvi pa se stanje kolapsira v le eno in po tem ostane enako - če izmerimo, da je mačka mrtva izgubimo linearno kombinacijo ter bo taka ostala še naprej. Schrödinger je sicer ustvaril ta eksperiment, da pokaže kako absurdna je formalizacija kvantne mehanike (specifično Kopenhagenska interpretacija kvantne mehanike, ki pa se še vedno najpogosteje uporablja), ampak še vedno dobro opiše idejo.
+
 \subsubsection{Spin}
 Spin je lastnost osnovnih delcov, podobno kot recimo njihova masa. Fizikalno je spin navidezno vrtenje delcev: imajo vrtilno količino ampak se ne vrtijo. Za osnovne delce bi bilo dejansko vrtenje celo nesmiselno, saj so delci točkasti brez volumna ali polmera. Ne glede na to pa spin še vedno lahko spin še vedno izmerimo, prav tako pa ima mnoge posledice na okolje. V kvantnem računalništvu bomo spin izrabljali za predstavitev kubitov. Da lahko vrednost spina spremljamo uporabimo Paulijeve matrike.
-\begin{definicija} Paulijeve matrike so \(2\times 2\) unitarne kompleksne matrike:
+\begin{definicija} \label{Pauli} Paulijeve matrike so \(2\times 2\) unitarne kompleksne matrike:
     \begin{align*}
         X &= \sigma_x \defeq \begin{bmatrix}
             0&1\\
@@ -320,9 +354,81 @@ S to oznako lahko preprosto napišemo poljuben element \(\mathbb C^2 \otimes \ma
     a\ket{00} + b\ket{01} + c\ket{10} + d\ket{11}.
 \end{align*}
 Hitro opazimo, da dimenzija vektorskega prostora narašča eksponentno. Sistem dveh kubitov je dimenzije \(2^2\), sistem treh je \(2^3\), sistem \(n\) kubitov pa \(2^n\). Ta lastnost kvantnim računalnikom omogoča procesiranje velike količine podatkov z zelo malo kubiti.
+\subsection{Prepletenost}
+Ključni pojav kvantne mehanike za kvantno računalništvo je prepletenost. Ta omogoča, da se več procesov odvija hkrati na način, ki ni prisoten v klasični fiziki. Če imamo dva kvantna sistema \(\Hb_1\) in \(\Hb_2\) (na primer dva delv), potem skupni sistem, katerega del sta oba sistema, opisuje \(\Hb_1\otimes\Hb_2\). Ta prostor pa je običajno večji kot prostor, ki vsebuje elemente oblike \(\ket\varphi\otimes\ket\psi\), saj je le generiran s takimi elementi in so v splošnem elementi oblike \(\sum_{i=0}^n\ket{\varphi_i}\otimes\ket{\psi_i}\). Kadar lahko elemente napišemo kot ločen tenzorski produkt \(\ket\varphi\otimes\ket\psi\), pomeni da elementa nista prepletena in sta med seboj neodvisna.
+\begin{definicija}
+    Če se stanja \(\ket\gamma\in \Hb_1\otimes\Hb_2\) ne da napisati kot \(\ket\varphi\otimes\ket\psi = \ket\gamma\) za \(\ket\varphi\in\Hb_1\) in \(\ket\psi\in\Hb_2\), potem je \(\ket\gamma\) prepleteno kvantno stanje.
+\end{definicija}
+Tako stanje
+\begin{align*}
+    \ket\psi &=  \frac12(\ket{00}+\ket{01}+\ket{10}+\ket{11})
+    &= \frac{1}{\sqrt2}(\ket0+\ket1) \otimes \frac{1}{\sqrt2}(\ket0+\ket1) 
+\end{align*}
+ni prepleteno ampak \(\frac{1}{\sqrt2}(\ket{00}+\ket{11})\) je.
 \subsection{Bellov izrek}
-\subsection{Kvantna vrata}
+\subsection{Kvantna vrata} Pri klasičnih vratih so bila vrata na \(n\) bitov poljubne preslikave \(B^n\to B\). Kubiti pa pripadajo hilbertovemu prostoru, tako da se ustrezna analogija tukaj zdi \(\Hb^{\otimes n}\to \Hb\). Vemo pa, da morajo biti kvantni procesi brez meritev unitarne transformacije, kar nas prisili v preslikavo oblike \(\Hb^{\otimes n}\to \Hb^{\otimes n}\).
+\begin{definicija}
+    Kvantna vrata na \(n\) kubitov so unitarni operatorji
+    \begin{align*}
+        U:\Hb^{\otimes n}\to \Hb^{\otimes n}.
+    \end{align*}
+    Če je \(n=1\) so to unarna kvantna vrata, če je \(n=2\) pa binarna kvantna vrata \cite[Definicija 5.7]{mathforqm}
+\end{definicija}
+Ker so vrata predstavljena z unitarnimi preslikavami, jim torej ustrezajo tudi matrike. Te matrike navadno predstavimo v standardni bazi \(\ket0, \ket1\).
+
+Najbolj enostaven primer kvantnih vrat je identiteta. To je preslikava, ki ji ustreza identična matrika (v standardni bazi). Omenili smo tudi Paulijeve matrike \ref{Pauli}, ki prav tako predstavljajo kvantna vrata. Tu že dobimo prvo preslikavo, podobno znanim pomembnim klasičnim vratom. Za Paulijevo \(X\) matriko velja \(X\ket0=\ket1\) in \(X\ket1=\ket0\), torej ustrezajo ravno negaciji. Pogosto jih imenujemo tudi q-NOT, kar je okrajšava za ``\emph{quantum not}''. Pomembna so tudi Hadamardova vrata
+\begin{align*}
+    H = \frac{1}{\sqrt{2}}(X+Z) = \frac{1}{\sqrt2} \begin{bmatrix}
+        1&1\\1&-1
+    \end{bmatrix}.
+\end{align*}
+Ta ustrezajo menjavi baze, saj \(H\ket0=\ket+\) in \(H\ket1=\ket-\). Za konec si oglejmo še vrata faznega zamika 
+\begin{align*}
+    M(\alpha) = e^{i\alpha}\begin{bmatrix}
+        e^{i\alpha}&0\\0&e^{i\alpha}
+    \end{bmatrix}
+\end{align*}
+in rotacija okoli \(v=(v_x,v_y,v_z)\) za kot \(\alpha\)
+\begin{align*}
+    D_v(\alpha) = \begin{bmatrix}
+        \cos\frac\alpha2 - iv_z\sin\frac\alpha2 & -i(v_x-iv_y)\sin\frac\alpha2\\
+        -i(v_x+iv_y)\sin\frac\alpha2 & \cos\frac\alpha2 + v_zi\sin\frac\alpha2
+    \end{bmatrix}.
+\end{align*}
+Zanimivo je, da lahko z slednjimi generiramo poljubno unitarno preslikavo na \(\Hb\) \cite[Lema 2.35]{mathforqm}. Kot primer velja 
+\begin{align*}
+    H = e^{i\frac{3\pi}{2}}D_z(0)D_y\left(\frac\pi2\right)D_z(-\pi),
+\end{align*}
+za \(y=(0,1,0)\) in \(z=(0,0,1)\).
+
+Binarnim kvantnim vratom ustrezajo unitarne preslikave \(U:\Hb^{\otimes 2}\to \Hb^{\otimes 2}\), čemur ustrezajo \(4\times 4\) kompleksne matrike. Tu sta najbolj pomembni vrata cNOT 
+\begin{align*}
+    \text{cNOT}&=\ket0\bra0\otimes I + \ket1\bra1\otimes X \\
+    &=\begin{bmatrix}
+        1&0&0&0\\
+        0&1&0&0\\
+        0&0&0&1\\
+        0&0&1&0
+    \end{bmatrix}
+\end{align*}
+in vrata swap
+\begin{align*}
+    S &= \ket{00}\bra{00}+\ket{11}\bra{11}+\ket{01}\bra{10}+\ket{10}\bra{01}\\
+    &=\begin{bmatrix}
+        1&0&0&0\\
+        0&0&1&0\\
+        0&1&0&0\\
+        0&0&0&1
+    \end{bmatrix}.
+\end{align*}
+Swap vrata zamenjajo kubita \(S(x\otimes y)=y\otimes x\), cNOT pa prvega pustijo nespremenjenega, drugega pa negirajo cNOT\((x\otimes y)=x\otimes Xy\). Spet se lahko vprašamo, kako veliko množico kvantnih vrat potrebujemo, da predstavimo poljubna vrata.
+\begin{definicija}
+    Množica kvantnih vrat \(U=\{U_1,\ldots,U_j\}\) je univerzalna, če lahko za poljubno število kubitov \(n\in\N\), poljubna vrata \(V:\Hb^n\to \Hb^n\) napišemo kot kombinacijo produktov vrat iz \(U\), tenzorskih produktov vrat iz \(U\) ter identitet poljubne velikosti.
+\end{definicija}
+Zgoraj omenjena vrata so že dovolj za univerzalnost, nabor pa bi lahko tudi zmanjšali. Dovolj je že \(\{D_x,D_z, M, \)cNOT\(\}\) \cite[Lema 5.26]{mathforqm}.
 \subsection{Kvantna vezja}
+V veliki meri bi kvantna vezja lahko enačili z kvantnimi vrati. Vezja si namreč predstavljamo kot zaporedje vrat. Če pa vrata zmnožimo (tenzorsko za vzporedna vrata, navadno za zaporedna vrata) potem dobimo namreč novo unitarno preslikavo, kar so spet po definiciji kvantna vrata. Dodamo pa še nov element kvantne meritve, ki pa ne ustreza kvantnim vratom. To je unarna operacija, ki sprejme kvantno stanje ter vrne klasični bit
+% omeniti "vrata" meritve
 \subsection{Implementacija}
 
 %----------------------------- ZX CALC -------------------------------------------
@@ -330,7 +436,7 @@ Hitro opazimo, da dimenzija vektorskega prostora narašča eksponentno. Sistem d
 \section{ZX-račun}
 V ZX-računu vezja predstavljamo kot graf. To ima mnogo prednosti, saj so pogosto diagrami bolj pregledni ter poenostavljanje diagramov bolj preprosto. Ključno je, da lahko definiramo diagrame, ki so ekvivalentni vezjem (oziroma predstavljajo linearne preslikave), saj te ustrezajo kvantnim procesom. Potem si definiramo dovoljene operacije nad temi grafi, ki so na nek način kompatibilne z operacijami na matrikah vendar naravne ter enostavne za uporabo. Cilj pa je, da z diagrami popolnoma nadomestimo klasični pogled (z klasičnimi kvantnimi vezji in pa linearnimi preslikavami) ter, kjer je mogoče, opisujemo lastnosti le z uporabo ZX-diagramov kot osnovno orodje.
 \subsection{Pajki}
-Vozlišča v grafu se imenujejo pajki. Poznamo dva primarna tipa pajkov, Z pajek (barvamo zeleno) in X pajek (barvamo rdeče).
+Vozlišča v grafu se imenujejo pajki. Poznamo dva primarna tipa pajkov, Z pajek (barvamo zeleno) in X pajek (barvamo rdeče). Pajku pripada faza, realno število, ki ga pišemo na sredini pajka (na skici je to \(\alpha\in\R\)).
 \begin{center}
 \begin{tikzpicture}
     \node [style=gn] (2) at (1,0) {\(\alpha\)};
@@ -375,7 +481,7 @@ To preslikavo lahko napišemo tudi kot \(2^n\times 2^m\) matriko. Element na mes
         \end{bmatrix}.
 \end{align*}
 Pajek brez vhodov ali izhodov z fazo \(\alpha\) pa napišemo kot skalar \(1+e^{i\alpha}\).
-Podobno bi lahko definirali X pajek z \(n\) vhodi in \(m\) izhodi \cite{workingcs} kot
+Podobno bi lahko definirali X pajek z \(n\) vhodi in \(m\) izhodi \cite[Poglavje 3.1]{workingcs} kot
 \begin{align*}
     \ket{+}^{\otimes m} \bra{+}^{\otimes n} + e^{i\alpha}\ket{-}^{\otimes m} \bra{-}^{\otimes n}.
 \end{align*}
@@ -913,7 +1019,7 @@ Zadnji aksiom je tudi najtežji in tudi najbolj nestandarden, vendar potreben za
             \draw (9) to (7.center);
     \end{tikzpicture}    
 \end{center}
-Na levi strani enakosti imamo dane poljubne \(\alpha_1,\alpha_2,\alpha_3\), na desni strani pa moremo vrednosti izračunati. Definiramo si nekaj pomožnih vrednosti.
+Na levi strani enakosti imamo dane poljubne \(\alpha_1,\alpha_2,\alpha_3\), na desni strani pa moramo vrednosti izračunati. Definiramo si nekaj pomožnih vrednosti.
 \begin{align*}
     x^+ \defeq \frac{\alpha_1 + \alpha_3}{2}\\
     x^- \defeq x^+-\alpha_3\\
@@ -1202,14 +1308,16 @@ Da upravičimo uporabo ZX-računa želimo nekaj dobrih lastnosti. Že prej smo o
 \begin{izrek}[Pravilnost]
     Če lahko diagram \(D_1:n\to m\) prepišemo v \(D_2:n\to m\) z uporabo aksiomov ZX-računa, potem \(\interpret{D_1} = \interpret{D_2}\).
 \end{izrek}
-Ta izrek enostavno preverimo tako, da razpišemo leve in desne strani enakosti podanih v aksiomih ter vidimo, da se ujemajo \cite[izrek 2.16]{Coecke_2011}. Bolj težavna je le topološka ekvivalenca grafov (specifično to, da lahko vhode in izhode vozlišč menjamo), saj ne moremo opazovati le enega elementa v izolaciji, pač pa interakcije med različnimi elementi. Še vedno bi to lahko dokazali z razpisovanjem, bolj pogosto pa se uporabi to, da model prevedemo v jezik kategorij \cite[izrek 4.24]{Coecke_2011}.
+Ta izrek enostavno preverimo tako, da razpišemo leve in desne strani enakosti podanih v aksiomih kot matrike ter vidimo, da se ujemajo \cite[izrek 2.16]{Coecke_2011}. Bolj težavna je le topološka ekvivalenca grafov (specifično to, da lahko vhode in izhode vozlišč menjamo), saj ne moremo opazovati le enega elementa v izolaciji, pač pa interakcije med različnimi elementi. Še vedno bi to lahko dokazali z razpisovanjem, bolj pogosto pa se uporabi to, da model prevedemo v jezik kategorij \cite[izrek 4.24]{Coecke_2011}.
 
-Tukaj velja še omeniti skalarne grafe. To so grafi brez vhodov in izhodov, prisotni v mnogih aksiomih, na primer pravilu kopiranja \ref{kopiranje}. Mnogi pristopi v aksiomih izpustijo skalarne grafe, vendar v tem primeru pravilnost ne velja. To sicer nima velikega praktičnega pomena, saj pravilnost še vedno velja do skalarja natančno, zaradi unitarnosti kvantnih preslikav pa ne izgubimo veliko informacij zaradi skalarjev. V tem primeru delamo z ekvivalenčnimi razredi matrik.
+Pravilnost teorije je predpogoj za uporabo katere koli teorije. Ne glede na to kako lepe lastnosti ima teorija, če se ne strinja z originalno, pravo različico ni uporabna.
+
+Tukaj velja še omeniti skalarne grafe. To so grafi brez vhodov in izhodov, prisotni v mnogih aksiomih, na primer pravilu kopiranja \ref{kopiranje} (kjer je X pajek povezan z Z pajkom, skupaj pa sta izolirana od preostanka grafa). Mnogi pristopi v aksiomih izpustijo skalarne grafe, vendar v tem primeru pravilnost ne velja. To sicer nima velikega praktičnega pomena, saj pravilnost še vedno velja do skalarja natančno, zaradi unitarnosti kvantnih preslikav pa ne izgubimo veliko informacij zaradi skalarjev. V tem primeru delamo z ekvivalenčnimi razredi matrik.
 \subsubsection{Polnost}
 \begin{izrek}[Polnost]
     Če imamo dva diagrama \(D_1:n\to m\) in \(D_2:n\to m\), za katera velja \(\interpret{D_1} = \interpret{D_2}\), potem lahko \(D_1\) pretvorimo v \(D_2\) (ali obratno) z uporabo aksiomov.
 \end{izrek}
-Že od samega začetka uvedbe ZX-računa je bila polnost najbolj iskana lastnost jezika. Dovoli namreč, da lahko vsako lastnost, ki drži v Diracovem formalizmu, dokažemo tudi v ZX računu. Prvotne izbire aksiomov niso bile polne, kar je omejilo ekspresivnost jezika in možnost njegove uporabe. Večina formalizacij je potrebovala nekakšen nelinearen aksiom, pri nas pa za to poskrbi aksiom Eulerjevih kotov \ref{euler}. Že pri zgodnjih rezultatih so sumili, da je podoben aksiom potreben \cite{Schr_der_de_Witt_2014}, vendar ni bilo znano, ali je zadosten. Kasneje pa so dokazali, da je bila to edina večja prepreka, dokaz polnosti pa je potekal preko podobnega grafičnega jezika, ZW-račun, za katerega je bila polnost že znana \cite{kangfengng}.
+Že od samega začetka uvedbe ZX-računa je bila polnost najbolj iskana lastnost jezika. Dovoli namreč, da lahko vsako lastnost, ki drži v Diracovem formalizmu, dokažemo tudi v ZX računu. Prvotne izbire aksiomov niso bile polne, kar je omejilo ekspresivnost jezika in možnost njegove uporabe. Večina formalizacij je potrebovala nekakšen nelinearen aksiom, pri nas pa za to poskrbi aksiom Eulerjevih kotov \ref{euler}. Že pri zgodnjih rezultatih so sumili, da je podoben aksiom potreben \cite{Schr_der_de_Witt_2014}, vendar ni bilo znano, ali je zadosten. Kasneje pa so dokazali, da je bila to edina večja prepreka in leta 2017 dokazali polnost. Dokaz polnosti je potekal preko podobnega grafičnega jezika, ZW-račun, za katerega je bila polnost že znana \cite{kangfengng}.
 
 \subsubsection{Univerzalnost}
 \begin{izrek}[Univerzalnost]
@@ -1252,13 +1360,34 @@ pa je ravno ta matrika. Poljubno unitarno preslikavo enega kubita pa lahko napi�
         \draw (0) to (1) to (2) to (3) to (4);
     \end{tikzpicture}.
 \end{center}
-Sedaj imamo univerzalnost za preslikave \(n\) kubitov v \(n\) kubitov. Kvantna stanja dobimo kot sliko takšne preslikave, za poljubno željeno kvantno stanje \(n+m\) kubitov po univerzalnosti obstaja ZX diagram, ki vhod \(n+m\) zelenih pajkov preslika v to stanje. Diagram, ki to predstavlja je \(n+m\) zelenih pajkov, ki vodijo v preostanek diagrama, ven iz diagrama pa vodi \(n+m\) povezav. Zaradi topološke ekvivalence grafov pa ni razlike med \(n+m\) izhodov ter \(n\) vhodov in \(m\) izhodov, saj lahko \(n\) izhodnih povezav prestavimo, da iz diagrama izhajajo na levo. Tako pa dobimo diagram, ki sprejme \(n\) kubitov, odda pa jih \(m\), predstavlja pa poljubno kvantno preslikavo, kar dokaže univerzalnost \cite[Izrek 2.18]{Coecke_2011}. \endproof
-% NOTE še za n->m namesto n->n !!!
+Sedaj imamo univerzalnost za preslikave \(n\) kubitov v \(n\) kubitov. Kvantna stanja dobimo kot sliko takšne preslikave, za poljubno željeno kvantno stanje \(n+m\) kubitov po univerzalnosti obstaja ZX diagram, ki vhod \(n+m\) zelenih pajkov preslika v to stanje. Diagram, ki to predstavlja je \(n+m\) zelenih pajkov, ki vodijo v preostanek diagrama, ven iz diagrama pa vodi \(n+m\) povezav. Zaradi topološke ekvivalence grafov pa ni razlike med \(n+m\) izhodov ter \(n\) vhodov in \(m\) izhodov, saj lahko \(n\) izhodnih povezav prestavimo, da iz diagrama izhajajo na levo in obratno. Tako pa preslikavo željeno, ki sprejme \(n\) kubitov, odda pa jih \(m\), pretvorimo v iskanje kvantnega stanja \(n+m\) kubitov (za kar vemo, da obstaja diagram), potem pa to stanje nazaj pretvorimo (spet z uporabo topološke ekvivalence) v \(D:n\to m\) preslikavo, kar dokaže univerzalnost \cite[Izrek 2.18]{Coecke_2011}. \endproof
 
 Izrek o univerzalnosti nam pove, da so diagrami dovolj ekspresivni in lahko opišejo poljubno transformacijo kubitov. Izrek o polnosti pa nam pove, da niso \emph{preveč} ekspresivni in bi lahko neko transformacijo opisali na več neekvivalentnih načinov. Če združimo izreka skupaj dobimo, da lahko vsako kvantno transformacijo napišemo na natanko en način, do pravil prepisovanja natančno.
 
+Obrat univerzalnosti tudi velja: za vsak diagram \(D:n\to m\) obstaja matrika \(A: \C^{2^n}\to \C^{2^m}\), da \(\interpret{D}=A\). Ta izrek je po konstrukciji trivialen, saj \(\interpret{D}\) je ta matrika, ki pa vedno obstaja; vsaki lastnosti diagrama (pajki, povezave, kompozicije) smo definirali ustrezen pojem iz linearne algebre. 
+
 \subsection{Drobci}
-Pogosto omejimo faze, ki jih lahko uporabimo. Če v fazah pajkov dovolimo le večkratnike \(\frac\pi2\) imenujemo to Cliffordov drobec ali \(frac\pi2\) drobec. Če dovolimo \(\frac\pi4\) imenujemo to Clifford+T drobec.
+Drobci ZX računa so različice formalizma, kjer omejimo konstrukcije v diagramu, navadno dovoljene faze pajkov. Tako v primeru \(\frac\pi2\) drobca namesto \(\alpha\in \R\) uporabimo le \(\alpha\in\{k\cdot \frac\pi2\mid k\in\Z\}\). Drobci imajo posebaj pomembno zgodovinsko vlogo, saj so polnost jezika najprej dokazali za drobce.
+\subsubsection{Drobec za Cliffordovo teorijo}
+Tu dovolimo le faze, ki so večkratniki števila \(\frac\pi2\). Ta drobec ustreza Cliffordovi kvantni mehaniki, dovoljene so samo meritve, priprave stanj in unitarne transformacije, ki so del Cliffordove grupe.
+\begin{definicija}
+    Paulijeva grupa \(n\) kubitov \(P_n\) je grupa tenzorskih produktov Paulijevih matrik
+    \begin{align*}
+        P_n = \left\{\alpha g_1\otimes g_2\otimes\cdots\otimes g_n \mid \alpha\in\{\pm 1, \pm i\}, \forall k\in\{1,\ldots n\}\sep g_k\in \{I,X,Y,Z\}\right\},
+    \end{align*}
+    kjer so Paulijeve matrike \(X,Y,Z\) standardne \ref{Pauli}, I pa predstavlja identično matriko.
+\end{definicija}
+\begin{definicija}
+    Cliffordova grupa \(n\) kubitov \(C_n\) je grupa operatorjev \(C_n=\{U\mid \forall g\in P_n\sep UgU^\tranp\in P_n\}\) nad množejem.
+\end{definicija}
+Pogosto uporabljen izraz je tudi stabilizatorska kvantna mehanika, saj po definiciji če unitarni operator stabilizira \(\ket \psi\), potem \(U\ket\psi = \ket\psi\). Kvantno stanje je stabilizatorsko, če ga stabilizirajo Paulijeve matrike (za več-kubitno verzijo vzamemo tenzorske produkte Paulijevih matrik) \cite{Backens1}. Cliffordova grupa pa je grupa unitarnih operatorjev, ki preslikajo stabilizatorska stanja v stabilizatorska. Če bi faze omejili na \(\pi\Z\), pa bi opisovali realno stabilizatorsko kvantno mehaniko.
+
+Polnost drobca za stabilizatorsko kvantno mehanikoso dokazali že leta 2013 \cite{Backens1}. Stabilizatorska kvantna mehanika pa ima mnogo pomankljivosti. Kljub temu, da je uporaben za popravilo napak in določene modele kvantnega računanja, delec ni univerzalen in torej ne more predstavljati vseh algoritmov ali izrekov kvantne mehanike. Še huje, vsako stabilizatorsko kvantno vezje lahko učinkovito simuliramo na klasičnem računalniku \cite{Aaronson_2004}. To pa pomeni, da nam dodatek Cliffordove kvantne mehanike v računalništvo ne pomaga znatno, saj bi vsak algoritem lahko izvedli tudi brez tega, da vpletemo kvantne algoritme. Na srečo izrek o učinkoviti simulaciji ne velja za bolj drobno porazdeljene faze.
+\subsubsection{Drobec za enokubitno Clifford+T teorijo}
+Tu dovolimo le faze, ki so večkratniki števila \(\frac\pi4\), operiramo pa samo na enem kubitu. To pomeni, da ima vsak pajek eno vhodno povezavo ter eno izhodno povezavo. Ta drobec ustreza Cliffordovi+T kvantni mehaniki na enem kubitu. Polnost tega drobca so dokazali leta 2014 \cite{backens2014zx}, pomemben pa je, saj je prvi drobec, ki je dovolj močan, da opisuje prave kvantne procese. Sicer drobec ni zmožen opisovati procesov več kubitov, niti ni zmožen točno opisovati kvantnih operacij nad enim kubitom, lahko pa do poljubne natančnosti opiše kvantne procese enega kubita \cite{814621}. Natančno ne more simulirati faz, ki so iracionalni večkratniki števila \(\pi\), lahko se pa tej fazi poljubno približamo.
+\subsubsection{Drobec za Clifford+T teorijo}
+Podobno kot enokubitna različica lahko ta opiše kvantne procese do poljubne natančnosti, dovoljuje pa tudi uporabo večjega števila kubitov. Polnost tega drobca je bila dokazana leta 2017 \cite{SimonCompleteness}.
+
 \subsection{Kategorična slika}
 \subsection{Dodatki}
 \section{Kvantna mehanika z grafičnimi vezji}
@@ -1275,7 +1404,7 @@ Z drugimi besedami, funkcija je konstantna, če preslika vse argumente v isto vr
 
 Deutsch-Jozsov algoritemu podamo funkcijo \(f\) z zagotovilom, da je ali konstantna ali uravnotežena, ta nam pa v eni sami evaluaciji funkcije \(f\) odgovori katero izmed teh dveh opcij je.
 \subsection{Kvantno iskanje}
-Dano imamo funkcijo \(f: \{0,1\}^n\to \{0,1\}\) z zagotovilom, da se točno ena četrtina vhodov preslika v \(1\). Cilj je poiskati nek vhod \(x\in\{0,1\}^n\) pri katerem \(f(x) = 1\). S klasičnim algoritmom brez uporabe kvantne mehanike ugotovimo pravi odgovor z verjetnostjo \(0.25\), v najslabšem primeru pa moremo preveriti kar tri četrtine vhodov! Kvantni algoritm nam vedno da odgovor v eni evaluaciji funkcije.
+Dano imamo funkcijo \(f: \{0,1\}^n\to \{0,1\}\) z zagotovilom, da se točno ena četrtina vhodov preslika v \(1\). Cilj je poiskati nek vhod \(x\in\{0,1\}^n\) pri katerem \(f(x) = 1\). S klasičnim algoritmom brez uporabe kvantne mehanike ugotovimo pravi odgovor z verjetnostjo \(0.25\), v najslabšem primeru pa moramo preveriti kar tri četrtine vhodov! Kvantni algoritm nam vedno da odgovor v eni evaluaciji funkcije.
 \subsection{Računanje preko meritev}
 
 
