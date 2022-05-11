@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber clanek"] 1652216788 "clanek.bcf" "clanek.bbl" "clanek" 1652216809
-  "clanek.bcf" 1652216809 110087 2b8fb7f7ce97ba451b7599066c3bf951 "pdflatex"
-  "sources.bib" 1652213302 11792 190d8c82712c5380f25c25cb58dc47a5 ""
+["biber clanek"] 1652277929 "clanek.bcf" "clanek.bbl" "clanek" 1652278195
+  "clanek.bcf" 1652278195 110181 849dbf87a0bf45869d5dbe93ea98c251 "pdflatex"
+  "sources.bib" 1652276760 12103 269ac6b36087b7bf22c91960833330c7 ""
   (generated)
   "clanek.bbl"
   "clanek.blg"
-["pdflatex"] 1652216803 "/home/user/diplomska/diplomska/clanek.tex" "clanek.pdf" "clanek" 1652216809
-  "/home/user/diplomska/diplomska/clanek.tex" 1652216786 123142 cab8addc421e358acc9deb00c0dafb0b ""
+["pdflatex"] 1652278189 "/home/user/diplomska/diplomska/clanek.tex" "clanek.pdf" "clanek" 1652278195
+  "/home/user/diplomska/diplomska/clanek.tex" 1652278187 128110 7ffba77bfe3b4732d15f7e36a10280fd ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1647844622 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1647844622 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm" 1647844622 3584 402da0b29eafbad07963b1224b222f18 ""
@@ -285,14 +285,15 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1647844622 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1649341611 4408072 42ceaa83bae76aebad711d3f3dd7f55f ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1649341575 2924511 f4d161b30ead6c14e86fea3d47fe3f9c ""
-  "clanek.aux" 1652216809 11924 4ff4425f1ec989e3b7471676d9e9bb41 "pdflatex"
-  "clanek.bbl" 1652216789 37256 57cbde5af6dab1fb9b1e0a92863dcefa "biber clanek"
-  "clanek.out" 1652216809 4035 6e7e21942d72e543fd2f51f8d8c9626a "pdflatex"
-  "clanek.run.xml" 1652216809 2316 28156325dc561cb430bc4a50b6ec410b "pdflatex"
-  "clanek.tex" 1652216786 123142 cab8addc421e358acc9deb00c0dafb0b ""
-  "clanek.toc" 1652216809 4192 fdad13a5bbdaca89a7fff5336ca21e90 "pdflatex"
+  "clanek.aux" 1652278195 12101 7700057662d825adcbb83e00cea0d795 "pdflatex"
+  "clanek.bbl" 1652277930 38820 1c380c7f368c904e0be399e607b37561 "biber clanek"
+  "clanek.out" 1652278195 4035 6e7e21942d72e543fd2f51f8d8c9626a "pdflatex"
+  "clanek.run.xml" 1652278195 2316 28156325dc561cb430bc4a50b6ec410b "pdflatex"
+  "clanek.tex" 1652278187 128110 7ffba77bfe3b4732d15f7e36a10280fd ""
+  "clanek.toc" 1652278195 4192 bc80d3ef22a038a0fa9286e6b1fbf892 "pdflatex"
   "fmfdelo.cls" 1612972649 6853 17a27ddfb322271fc707d781d0011de2 ""
-  "pdfa.xmpi" 1652216803 5042 b7054569d91b3ca021cab5979ebb4354 "pdflatex"
+  "pdfa.xmpi" 1652278189 5042 89147fe57871c14858eb721281bd8fa9 "pdflatex"
+  "sources.bib" 1652276760 12103 269ac6b36087b7bf22c91960833330c7 ""
   (generated)
   "clanek.aux"
   "clanek.bcf"
