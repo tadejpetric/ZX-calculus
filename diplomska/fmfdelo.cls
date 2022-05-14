@@ -6,7 +6,7 @@
 %-----------------------------------------------------------------------------
 
 % Nalozimo pakete, ki ponujajo enostavno programiranje.
-\RequirePackage{etoolbox, ifthen, keyval, biblatex}
+\RequirePackage{etoolbox, ifthen, keyval}
 
 % Definiramo pomozne ukaze.
 \newcommand{\@ifthen}[2]{\ifthenelse{#1}{#2}{\relax}}
@@ -45,7 +45,15 @@
   \RequirePackage[T1]{fontenc}
   \RequirePackage{silence}
   \WarningFilter{hyperref}{Option}
+  % Paket hyperxmp nalozimo, da bo iz \hypersetup podatkov samodejno napolnil XMP podatke,
+  % ki so potrebni za PDF/A datoteke. S tem se izognemo generiranju datoteke .xmpdata, ki
+  % jo sicer potrebuje paket pdfx.
   \RequirePackage{hyperxmp}
+  % Paketu hyperref podamo moznost pdfa, da ne dela linkov, ki bi lahko pokvarili PDF/A,
+  % drugi dve moznosti pa natancno specificirata verzijo.
+  % Paket hyperxmp naceloma ze nalozi hyperref, vendar ga vseeno nalozimo se sami,
+  % da dolocimo verzijo, hkrati pa podpremo stare verzije hyperxmpja, ki tega ne
+  % nalozijo.
   \RequirePackage[pdfa,pdfapart=1,pdfaconformance=B]{hyperref}
 
   % algorithms
@@ -60,15 +68,20 @@
   \algdef{S}[FOR]{ForEach}[2]{\algorithmicforeach\ #1\ \algorithmicin\ #2\ \algorithmicdo}
 }
 \newcommand{\zapisiMetaPodatke}{
-  \hypersetup{pdfencoding=auto, psdextra,pdflang=sl,
+  \hypersetup{pdfencoding=auto, psdextra, pdflang=sl, % ali 'en' za anglesicno
     bookmarksopen, bookmarksdepth=3,
     pdfauthor=\@avtor,
     pdftitle=\@naslov,
     pdfproducer={pdfTeX},
     pdfsubject={matematika},
     pdfkeywords=\@kljucnebesede}
-  \RequirePackage[a-1b]{pdfx}
+  % Paket hyperref definira ukaz \C, ki ga zelo zelo verjetno nihce ne bo rabil,
+  % zato ga odstranimo, da lahko \C uporabljamo za kompleksna stevila. Odstraniti
+  % ga moramo sele tu, saj \hypersetup ocitno makro ponovno definira
   \let\C\undefined
+  % Paket pdfx moramo naloziti, ker pravilno nastavljeni metapodatki se niso dovolj za
+  % PDF/A. Nastavljeni morajo biti fonti, barvni profili, ... in za vse to poskrbi pdfx.
+  \RequirePackage[a-1b]{pdfx}
 }
 
 %-----------------------------------------------------------------------------
@@ -160,6 +173,7 @@ Ljubljana, \@letnica}
 
 \thispagestyle{empty}
 \tableofcontents
+\vfill
 \pagebreak
 
 \thispagestyle{empty}
@@ -175,7 +189,7 @@ Ljubljana, \@letnica}
 \end{center}
 \@abstract
 \vfill\noindent
-{\bf Math. Subj. Class. (2020):} \@klasifikacija \\[1mm]
+{\bf Math. Subj. Class. (2010):} \@klasifikacija \\[1mm]
 {\bf Ključne besede:} \@kljucnebesede \\[1mm]
 {\bf Keywords:} \@keywords
 \pagebreak
