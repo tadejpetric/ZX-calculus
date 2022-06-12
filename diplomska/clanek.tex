@@ -25,10 +25,10 @@
 
 %  V povzetku na kratko opišite vsebinske rezultate dela. Sem ne sodi razlaga organizacije dela --
 %  v katerem poglavju/razdelku je kaj, pač pa le opis vsebine.
-\povzetek{ZX-račun je nov pristop k formalizaciji kvantnega računalništva. Kvantna vezja in procese predstavimo kot barvne grafe z dodatnimi pravili za poenostavljanje, kar omogoči opis vsakega kvantnega vezja. Ogledamo si tudi različne delce ZX računa, ki omogočijo predstavitev različnih modelov kvantnega računalništva. Graf lahko pretvorimo tudi v matriko. Prikažemo tudi nekaj uporab, na primer kvantna teleportacija in kvantno iskanje.}
+\povzetek{ZX-račun je nov pristop k formalizaciji kvantnega računalništva. Kvantna vezja in procese predstavimo z barvnimi grafi z dodatnimi pravili za poenostavljanje, kar omogoči opis vsakega kvantnega vezja. Ogledamo si tudi različne različice ZX-računa, ki omogočijo predstavitev različnih modelov kvantnega računalništva. Graf lahko pretvorimo tudi v matriko. Prikažemo tudi nekaj uporab ZX-računa, na primer kvantno teleportacijo in poenostavljanje vezij.}
 
 %  Prevod slovenskega povzetka v angleščino.
-\abstract{ZX-calculus is a new approach to the formalization of quantum computing. Quantum circuits are represented with coloured graphs with added simplification rules. Using ZX-calculus, we can describe any quantum circuit. We also explore several fragments of ZX calculus and their use in describing different computational models. The graphs can also be converted to matrices. We also show a few applications, such as the quantum search algorithm and quantum teleportation.}
+\abstract{ZX-calculus is a new approach to the formalization of quantum computing. Quantum circuits are represented with coloured graphs with added simplification rules. Using ZX-calculus, we can describe any quantum circuit. We also explore several fragments of ZX calculus and their use in describing different computational models. The graphs can also be converted to matrices. We also show a few applications, such as the circuit optimisation and quantum teleportation.}
 
 % navedite vsaj eno klasifikacijsko oznako --
 % dostopne so na www.ams.org/mathscinet/msc/msc2010.html
@@ -111,16 +111,16 @@
 \begin{document}
 
 \section{Uvod}
-Koncept kvantnega računalništva se je začel leta 1981, ko je Richard Feynman predlagal, kako bi lahko simulirali določene fizikalne procese z uporabo nekaterih lastnosti kvantne mehanike \cite{feynmann}. Klasični algoritmi imajo namreč težavo, da je časovna zahtevnost simulacije eksponentna glede na njeno velikost. Ker pa je narava teh simulacij pogosto probabilistična lahko uporabimo prednosti kvantne mehanike, ki je tudi sama probabilistična, da jih simuliramo bolj učinkovito, na primer z linearno kompleksnostjo. Na začetku so bili najbolj zanimivi procesi, kjer je potrebno upoštevati kvantno mehaniko -- Feynman je namreč predlagal, da so vsi kvantni sistemi na nek način ekvivalentni. Potem je simulacija preprosta, saj le izvajamo iste korake v kvantnem računalniku, kot se bi izvajali v dejanskem ekspirimentu, za rezultat pa pogledamo končno stanje računalnika.
+Koncept kvantnega računalništva se je začel leta 1981, ko je Richard Feynman predlagal, kako bi lahko simulirali določene fizikalne procese z uporabo nekaterih lastnosti kvantne mehanike \cite{feynmann}. Klasični algoritmi imajo namreč težavo, da je časovna zahtevnost simulacije kvantne mehanike eksponentna glede na velikost modela. Ker pa je narava teh simulacij pogosto probabilistična, lahko uporabimo prednosti kvantne mehanike, ki je tudi sama probabilistična, da jih simuliramo bolj učinkovito, na primer z linearno kompleksnostjo. Na začetku so bili najbolj zanimivi procesi, kjer je potrebno upoštevati kvantno mehaniko -- Feynman je namreč predlagal, da so vsi kvantni sistemi na nek način ekvivalentni. Potem je simulacija preprosta, saj le izvajamo iste korake v kvantnem računalniku, kot se bi izvajali v dejanskem ekspirimentu, za rezultat pa pogledamo končno stanje računalnika.
 
-Izkazalo pa se je, da imajo kvantni računalniki mnogo uporabe tudi izven fizikalnih simulacij: Shorov algoritem sprejme število, in vrne njegove prafaktorje. Ta problem je klasično zelo težek, ne vemo še, ali obstaja učinkovita rešitev, kvantno pa poznamo rešitev, ki deluje hitreje kot eksponentno. Podobno obstaja mnogo drugih težkih problemov za katere imamo hitro kvantno rešitev, na primer iskanje inverzne funkcije, Fourierjeva transformacija, iskanje diskretnega logaritma...
+Izkazalo pa se je, da imajo kvantni računalniki mnogo uporabe tudi izven fizikalnih simulacij: Shorov algoritem sprejme število in vrne njegove prafaktorje. Ta problem je klasično zelo težek, ne vemo še, ali obstaja učinkovita rešitev, kvantno pa poznamo rešitev, ki deluje hitreje kot eksponentno. Podobno obstaja mnogo drugih težkih problemov, za katere imamo hitro kvantno rešitev, na primer iskanje inverzne funkcije, Fourierjeva transformacija, iskanje diskretnega logaritma...
 
-Pomembno vprašanje je kako formalizirati kvantne računalnike in kako jih programirati. John Von Neumann je formaliziral kvantno mehaniko z uporabo Hilbertih prostorov, ta pristop je najbolj pogosto uporabljen še danes \cite{neumann}. Izkaže pa se, da velik del teorije postane bolj naraven, če uporabimo drugačen pristop. To je kmalu predlagal že Neumann s kvantno logiko, vendar se pristop takrat še ni uveljavil, kar je močno obžaloval. Iz kvantne logike se je razvil moderni pristop, kategorična kvantna mehanika. Tukaj lahko mnoge zakone opišemo le z diagrami, kar naredi mnogo dejstev bolj naravnih, ne izgubimo pa nič natančnosti. Iz kategorične kvantne mehanike se je razvil ZX-račun, ki ga uporabljamo za opis kvantnih vrat in vezij z uporabo diagramov. Znotraj samega ZX-računa pa bo marsikaj bolj enostavno, na primer iskanje algoritmov, iskanje novih fizikalnih zakonov in poenostavljanje vezij.
+Pomembno vprašanje je, kako formalizirati kvantne računalnike in kako jih programirati. John von Neumann je formaliziral kvantno mehaniko z uporabo Hilbertovih prostorov, ta pristop je najbolj pogosto uporabljen še danes \cite{neumann}. Izkaže pa se, da velik del teorije postane bolj naraven, če uporabimo drugačen pristop. To je kmalu predlagal že von Neumann s kvantno logiko, vendar se pristop takrat še ni uveljavil, kar je močno obžaloval. Iz kvantne logike se je razvil moderni pristop, kategorična kvantna mehanika. Tukaj lahko mnoge zakone opišemo le z diagrami, kar naredi mnogo dejstev bolj naravnih, ne izgubimo pa nič natančnosti. Iz kategorične kvantne mehanike se je razvil ZX-račun, ki ga uporabljamo za opis kvantnih vrat in vezij z uporabo diagramov. Znotraj samega ZX-računa pa bo marsikaj bolj enostavno, na primer iskanje algoritmov, iskanje novih fizikalnih zakonov in poenostavljanje vezij.
 
 \section{Klasično računalništvo}
 Za opis kvantnega računalništva je koristno najprej poznati delovanje klasičnih računalnikov. 
 \subsection{Biti in vrata}
-Klasični računalniki so zgrajeni na osnovi Boolove algebre. Osnovni objekti so biti, imajo lahko vrednosti \(0\) in \(1\), ustrezajo pa logični neresnici in logični resnici. Namesto \(1\) bomo uporabljali \(\ket{1}\), namesto \(0\) pa pišemo \(\ket{0}\), saj nam to olajša prehod na kvantne računalnike, prav tako pa jih težje zamenjamo z naravnima številoma \(0\) in \(1\). Naredimo množico bitov \(B = \{\ket0, \ket1\}\).
+Klasični računalniki so zgrajeni na osnovi Booleove algebre. Osnovni objekti so biti, imajo lahko vrednosti \(0\) in \(1\), ustrezajo pa logični neresnici in logični resnici. Namesto \(1\) bomo uporabljali \(\ket{1}\), namesto \(0\) pa uporabljamo \(\ket{0}\), saj nam to olajša prehod na kvantne računalnike, prav tako pa jih težje zamenjamo z naravnima številoma \(0\) in \(1\). Naredimo množico bitov \(B = \{\ket0, \ket1\}\).
 
 Bite lahko združimo v skupine. Skupina bitov je element kartezičnega produkta množice bitov. Kot primer, skupina treh bitov je \(B^3\), primer elementa te skupine pa je \((\ket0, \ket1, \ket0)\). Uvedemo preprostejši zapis za skupine: 
 \begin{align*}
@@ -130,7 +130,7 @@ Bite lahko združimo v skupine. Skupina bitov je element kartezičnega produkta 
     &\vdots
 \end{align*}
 
-Funkcije skupin bitov imenujemo logična vrata oziroma. Najbolj osnovna vrata so vrata za konjunkcijo, disjunkcijo in negacijo.
+Funkcije skupin bitov imenujemo logična vrata. Najbolj osnovna vrata so vrata za konjunkcijo, disjunkcijo in negacijo.
 \begin{align*}
     \land(\ket{ab}) = \ket{a}\land\ket{b} = \ket{a\land b},\\
     \lor(\ket{ab}) = \ket{a}\lor\ket{b} = \ket{a\lor b},\\
@@ -138,13 +138,13 @@ Funkcije skupin bitov imenujemo logična vrata oziroma. Najbolj osnovna vrata so
 \end{align*}
 Izkaže se, da je zgornji nabor operacij (skupaj s kompozicijo) dovolj, da izrazimo poljubno funkcijo \(B^n\to B\).
 \begin{definicija}
-    Množica logičnih vrat \(B^2\to B\) je funkcijsko polna, če lahko poljubno funkcijo \(B^n\to B\) predstavimo kot kompozicijo vrat iz te množice.
+    Množica logičnih vrat \(\{f_i: B^{n_i}\to B \mid n_i\in \N\}\) je \emph{univerzalna}, če lahko poljubno funkcijo \(B^n\to B\) predstavimo kot kompozicijo vrat iz te množice.
 \end{definicija}
-Izkaže se, da obstajajo še preprostejši primeri funkcijsko polnih naborov operatorjev. Najbolj znan je NAND, ki ga predstavimo kot \(\downarrow\)
+Izkaže se, da obstajajo še preprostejši primeri univerzalnih naborov operatorjev. Najbolj znan je \textsf{NAND}, ki ga predstavimo kot \(\downarrow\)
 \begin{align*}
     \ket{a}\downarrow \ket{b} = \lnot (\ket{a} \land \ket{b}),
 \end{align*}
-obstajajo pa še ostali, kot naprimer NOR \cite{sheffers}.
+obstajajo pa še ostali, kot naprimer \textsf{NOR} \cite{sheffers}.
 
 Pogosto raje uporabljamo grafični zapis logičnih vrat. To je še posebej pomembno, saj se podobna grafična vezja definira tudi za kvantne računalnike. Začnemo z najenostavnejšimi logičnimi vrati, vrati za negacijo
 \begin{center}
@@ -187,7 +187,7 @@ Na levi strani pišemo vhode (v tem primeru \(\ket{a}\)), črte pa predstavljajo
 \end{center}
 Na levi strani imamo logična vrata za konjunkcijo, v katero vodita dva vhoda. Rezultat te operacije pa kasneje negiramo. Izhodne vrednosti ponavadi ne pišemo, saj bi bila enaka grafični predstavitvi vezja. Na desni strani enakosti pa vhode najprej negiramo, od tja pa podatke preusmerimo v vrata za disjunkcijo, iz katerih dobimo rezultat vezja. Po De Morganovem izreku sta vezji enaki.
 
-Nazadnje si ogledamo še vrata NAND
+Nazadnje si ogledamo še vrata \textsf{NAND}
 \begin{center}
     \begin{tikzpicture}
         \node[nand gate US, draw, logic gate inputs=nn] (nand) at (0,0){};
@@ -199,7 +199,7 @@ Nazadnje si ogledamo še vrata NAND
         \draw (nand.output) to (out);
     \end{tikzpicture},
 \end{center}
-vrata za negacijo z uporabo NAND pa bi bile
+vrata za negacijo z uporabo \textsf{NAND} pa bi bile
 \begin{center}
     \begin{tikzpicture}
         \node[nand gate US, draw, logic gate inputs=nn] (nand) at (0,0){};
@@ -211,22 +211,22 @@ vrata za negacijo z uporabo NAND pa bi bile
         \draw (nand.output) to (out);
     \end{tikzpicture}.
 \end{center}
-S pomočjo vrat za negacijo lahko enostavno izrazimo vrata za konjunkcijo, z De Morganovim zakonom pa tudi za disjunkcijo. Tako kmalu vidimo, da lahko poljubno vezje predstavimo le z vrati NAND.
+S pomočjo vrat za negacijo lahko enostavno izrazimo vrata za konjunkcijo, z De Morganovim zakonom pa tudi za disjunkcijo. Tako kmalu vidimo, da lahko poljubno vezje predstavimo le z vrati \textsf{NAND}.
 
 \subsection{Implementacija}
-Glavni razlog, za grafični zapis vezij je podobnost z realno implementacijo v elektronskih vezjih. Logična vrata so enostavno dostopna, ponavadi implementirana s tranzistorji, povezave med njimi pa predstavljajo žice. Logične vrednosti predstavimo z električno napetostjo. Tako lahko za logično vrednost \(1\) uporabimo \(+5\)V (pogosta je tudi vrednost \(+3.3\)V), za \(0\) pa uporabimo \(0\)V.
+Glavni razlog za grafični zapis vezij je podobnost z realno implementacijo v elektronskih vezjih. Logična vrata so enostavno dostopna, ponavadi implementirana s tranzistorji, povezave med njimi pa predstavljajo žice. Logične vrednosti predstavimo z električno napetostjo. Tako lahko za logično vrednost \(1\) uporabimo \(+5\) V (pogosta je tudi vrednost \(+3.3\) V), za \(0\) pa uporabimo \(0\) V.
 
 %----------------------------------------------------------- KONEC KLASIČNO ------------------------------------------------------------------------------
 
 \section{Kvantna mehanika}
 Klasični pristop do kvantne mehanike uporablja Hilbertove prostore \cite[stran 12]{mathforqm}.
 
-\begin{definicija} \(\Hb\) je Hilbertov prostor če je vektorski prostor s skalarnim produktom
+\begin{definicija} \emph{Hilbertov prostor} \(\Hb\) je vektorski prostor s skalarnim produktom
     \begin{align*}
         \braket{\cdot}{\cdot} :& \Hb \times \Hb \to \C\\
-        & (\psi, \varphi) \mapsto \braket{\varphi}{\psi},
+        & (\psi, \varphi) \mapsto \braket{\psi}{\phi},
     \end{align*}
-    za katerega za vse \(\phi, \varphi, \varphi_1, \varphi_2 \in \Hb\) velja
+    za katerega za vse \(\phi, \psi, \varphi_1, \varphi_2 \in \Hb\) velja
     \begin{align*}
         \braket{\psi}{\varphi} &= \overline{\braket{\varphi}{\psi}},\\
         \braket\psi &\geq 0,\\
@@ -241,17 +241,17 @@ Klasični pristop do kvantne mehanike uporablja Hilbertove prostore \cite[stran 
     v katerem je \(\Hb\) poln.
 \end{definicija}
 
-Linearne preslikave \(\Hb\to\Hb\) so operatorji. Če je \(\forall \psi,\phi\in\Hb\sep\braket{A^*\psi}{\varphi} = \braket{\psi}{A\varphi}\) je \(A^*\) adjungirani operator operatorja \(A\). Operator \(U\) je unitaren če \(\forall \psi,\varphi\in\Hb\sep \braket{U\psi}{U\varphi} = \braket{\psi}{\varphi}\).
+Linearnim preslikavam \(\Hb\to\Hb\) pravimo \emph{operatorji}. Če za operator \(A^*\) velja \(\forall \psi,\phi\in\Hb\sep\braket{A^*\psi}{\varphi} = \braket{\psi}{A\varphi}\), je \(A^*\) \emph{adjungirani operator} operatorja \(A\). Operator \(U\) je \emph{unitaren}, če velja \(\forall \psi,\varphi\in\Hb\sep \braket{U\psi}{U\varphi} = \braket{\psi}{\varphi}\).
 
-Vektorje bomo pisali v Diracovem zapisu. Elementi \(\Hb\) so tako \(\ket{\psi}\in\Hb\), temu rečemo ket. Znotraj skalarnih produktov ketov ponavadi ne pišemo, tako dobimo \(\braket{\ket\psi}{\ket\varphi} = \braket{\psi}{\varphi}\). Elementi dualnega prostora pa so braji:
+Vektorje bomo pisali v Diracovem zapisu. Elementi \(\Hb\) so tako \(\ket{\psi}\in\Hb\), temu rečemo \emph{ket}. Znotraj skalarnih produktov ketov ponavadi ne pišemo, tako dobimo \(\braket{\ket\psi}{\ket\varphi} = \braket{\psi}{\varphi}\). Elementi dualnega prostora pa so \emph{braji}:
 \begin{align*}
     \bra{\psi} \defeq \left(\varphi \mapsto \braket{\psi}{\varphi} \right).
 \end{align*}
 Tukaj opazimo, da velja \(\bra{\psi}\, \ket{\varphi} = \braket{\psi}{\varphi}\).
 
-Pomembni so še lastni vektorji in projekcije: \(\ket{\psi}\) je lastni vektor za \(A\) z lastno vrednostjo \(\lambda\), če \(A\ket\psi = \lambda \ket\psi\); \(P\) je projekcija, če \(P^2 = P\). Če je poleg tega še \(P^* = P\) je projekcija ortogonalna.
+Pomembni so še lastni vektorji in projekcije: \(\ket{\psi}\) je \emph{lastni vektor} za \(A\) z \emph{lastno vrednostjo} \(\lambda\), če \(A\ket\psi = \lambda \ket\psi\); \(P\) je \emph{projekcija}, če \(P^2 = P\). Če je poleg tega še \(P^* = P\), je to \emph{ortogonalna projekcija}.
 
-Za sestavljanje novih Hilbertovih prostorov iz starih nam bo služil tenzorski produkt. Ta nam bo omogočil, da združimo opis dveh kvantnih delcev v en sam sistem. Najprej definiramo tenzorski produkt kot preslikava
+Za sestavljanje novih Hilbertovih prostorov iz starih nam bo služil tenzorski produkt. Ta nam bo omogočil, da združimo opis dveh kvantnih delcev v en sam sistem. Najprej definiramo \emph{tenzorski produkt} kot preslikavo
 \begin{align*}
     \ket\varphi \otimes \ket\psi : \Hb_1 \times \Hb_2 &\to \mathbb C\\
     (u,v) &\mapsto \braket{u}{\varphi} \braket{v}{\psi}.
@@ -271,45 +271,16 @@ Tenzorski produkt večih prostorov naredimo induktivno, najprej tenzorski produk
 \end{align*}
 
 \subsection{Von Neumannova slika}
-\subsubsection{Kvantna stanja in opazljivke}
-Kvantna stanja so elementi Hilbertovega prostora \(\ket\psi\in\Hb\), za katere velja \(\norm{\ket\psi} = 1\). Opazljivka je merljiva količina kvantnega sistema (na primer hitrost ali pozicija). Predstavimo jo s sebi-adjungiranim operatorjem \(\Hb\). Definiramo oznako
-\begin{align*}
-    \ev{A}_\psi = \braket{\psi}{A\psi},
-\end{align*}
-ki jo imenujemo pričakovana vrednost opazljivke \(A\) v stanju \(\ket\psi\). Če so \(e_j\) lastni vektorji \(A\) in \(\lambda_j\) njihove lastne vrednosti lahko pričakovano vrednost razpišemo po lastni bazi
-\begin{align*}
-    \ev{A}_\psi = \sum_j\lambda_j\lvert \braket{\psi}{e_j}\rvert^2.
-\end{align*}
-\subsubsection{Meritve}
-V kvantnih sistemih lahko izmerimo opazljivke. Možni rezultati meritev so točno lastne vrednosti operatorja, ki predstavlja opazljivko. Rečemo da je verjetnost \(P_\psi(\lambda)\), da za kvantni sistem, ki je v stanju \(\ket\psi\) dobimo po meritvi opazljivke \(A\) lastno vrednost \(\lambda\) točno 
-\begin{align*}
-    P_\psi(\lambda) = \norm{P_\lambda \ket\psi}^2,
-\end{align*}
-kjer je \(P_\lambda\) projekcija na lastni podprostor z lastno vrednostjo \(\lambda\) \cite[Poglavje 2.3.1]{mathforqm}.
-
-\begin{izrek}
-    Če je sistem pripravljen v stanju \(\ket\psi \in \Hb\) potem je verjetnost, da izmerimo stanje \(\ket\varphi \in Bh\) enaka \(\lvert \braket{\varphi}{\psi}\rvert^2\).
-\end{izrek}
-\begin{proof}
-    Opazljivka za preverjanje, če je sistem v stanju \(\varphi\) je kar projekcija \(P_\varphi = \ket\varphi \bra\varphi\). Ima lastno vrednost \(\lambda=1\) za lastni vektor \(\ket\varphi\), torej je projekcija na lastni podprostor tudi \(P_\varphi\).
-    \begin{align*}
-        P_psi (\lambda) &= P_\psi(1) =\norm{P_1\ket\psi}^2 = \norm{P_\varphi\ket\psi}^2\\
-                        &= \norm{\ket\varphi\braket{\varphi}{\psi}}^2 = \lvert \braket{\varphi}{\psi}\rvert^2,
-    \end{align*}
-    saj \(\norm{\ket\varphi} = 1\).
-\end{proof}
-
-Če izmerimo stanje \(\ket\psi\) za opazljivko \(A\) ter izmerimo lastno vrednost \(\lambda\), potem se stanje \(\ket\psi\) po meritvi spremeni v
-\begin{align*}
-    \frac{P_\lambda \ket\psi}{\norm{P_\lambda\ket\psi}}.
-\end{align*}
-Ta pojav je znan kot kolaps valovne funkcije, saj se pogosto (zaradi zgodovinskih razlogov) stanju \(\psi\) pravi valovna funkcija. Tudi, če smo imeli prej stanje, ki je linearna kombinacija večih vektorjev iz različnih lastnih podprostorov se bo z meritvijo stanje spremenilo in ne bo več linearna kombinacija, pač pa samo element enega. V enostavnem primeru, ko vsak lastni podprostor napenja natanko en vektor, če izmerimo \(\ket\psi\), naš vektor postane \(\ket\psi\), čeprav je bil prej lahko linearna kombinacija večih vektorjev. Po prejšnjem izreku pa imamo višje možnosti izmeriti bližnje lastne podprostore, povprečje pripadajočih lastnih vrednosti pa je natanko pričakovana vrednost \(\ev{A}_\psi\).
-
-V širši javnosti je tu popularen še miselni eksperiment Schrödingerjeve mačke. Opisuje škatlo, v kateri je mačka ter steklenička strupa, ki jo lahko razlije Geigerjev števec (kar da kvantno naravo eksperimentu). Meritev tu predstavlja to, da odpremo škatlo in preverimo, če je mačka še živa. Pred meritvijo pa tega ne vemo, in lahko rečemo, da je mačka \emph{hkrati} živa in mrtva, po meritvi pa se stanje kolapsira v le eno in po tem ostane enako - če izmerimo, da je mačka mrtva izgubimo linearno kombinacijo ter bo taka ostala še naprej. Schrödinger je sicer ustvaril ta eksperiment, da pokaže kako absurdna je formalizacija kvantne mehanike (specifično Kopenhagenska interpretacija kvantne mehanike, ki pa se še vedno najpogosteje uporablja), ampak še vedno dobro opiše idejo.
-
 \subsubsection{Spin}
-Spin je lastnost osnovnih delcov, podobno kot recimo njihova masa. Fizikalno je spin navidezno vrtenje delcev: imajo vrtilno količino ampak se ne vrtijo. Za osnovne delce bi bilo dejansko vrtenje celo nesmiselno, saj so delci točkasti brez volumna ali polmera. Ne glede na to pa spin še vedno lahko spin še vedno izmerimo, prav tako pa ima mnoge posledice na okolje. V kvantnem računalništvu lahko spin uporabljamo za predstavitev kubitov. Da lahko vrednost spina spremljamo, uporabimo Paulijeve matrike.
-\begin{definicija} \label{Pauli} Paulijeve matrike so \(2\times 2\) unitarne kompleksne matrike:
+\emph{Spin} je lastnost osnovnih delcov, podobno kot recimo njihova masa. Fizikalno je spin navidezno vrtenje delcev: imajo vrtilno količino ampak se ne vrtijo. Za osnovne delce bi bilo dejansko vrtenje celo nesmiselno, saj so delci točkasti brez volumna ali polmera. Ne glede na to pa spin še vedno lahko spin še vedno izmerimo, prav tako pa ima mnoge posledice na okolje. V kvantnem računalništvu lahko spin uporabljamo za predstavitev kubitov - analogije bitov v kvantnem računalništvu. 
+
+\subsubsection{Kvantna stanja in opazljivke}
+Kvantna stanja so elementi Hilbertovega prostora \(\ket\psi\in\Hb\), za katere velja \(\norm{\ket\psi} = 1\). Najbolj osnoven primer so elementi oblike 
+\begin{align*}
+    \begin{bmatrix}a\\b\end{bmatrix} \in \C^2
+\end{align*}
+kjer \(a^2 + b^2 = 1\). Takemu stanju rečemo \emph{kubit}, bolj podrobno pa si jih bomo ogledali kasneje. \emph{Opazljivka} je merljiva količina kvantnega sistema (na primer hitrost ali pozicija). Predstavimo jo s sebi-adjungiranim operatorjem \(\Hb\). Kot primer opazljivke podamo opazljivke spina.
+\begin{definicija} \label{Pauli} \emph{Paulijeve matrike} so \(2\times 2\) unitarne kompleksne matrike:
     \begin{align*}
         X &= \sigma_x \defeq \begin{bmatrix}
             0&1\\
@@ -326,6 +297,41 @@ Spin je lastnost osnovnih delcov, podobno kot recimo njihova masa. Fizikalno je 
     \end{align*}
 \end{definicija}
 Opazljivke spina dobimo, če Paulijeve matrike delimo z \(2\). Te imajo lastne vrednosti \(\pm \frac12\) in jih uporabimo za meritve v naravi. V navadi pa je, da faktorja \(\frac12\) ne pišemo in kot opazljivke uporabimo le \(\sigma_x = X\) in \(\sigma_z = Z\) \cite[Definicija 2.21]{mathforqm}.
+
+ Definiramo oznako
+\begin{align*}
+    \ev{A}_\psi = \braket{\psi}{A\psi},
+\end{align*}
+ki jo imenujemo pričakovana vrednost opazljivke \(A\) v stanju \(\ket\psi\). Če so \(e_j\) lastni vektorji \(A\) in \(\lambda_j\) njihove lastne vrednosti lahko pričakovano vrednost razpišemo po lastni bazi
+\begin{align*}
+    \ev{A}_\psi = \sum_j\lambda_j\lvert \braket{\psi}{e_j}\rvert^2.
+\end{align*}
+\subsubsection{Meritve}
+V kvantnih sistemih lahko izmerimo opazljivke. Možni rezultati meritev so točno lastne vrednosti operatorja, ki predstavlja opazljivko. Rečemo da je verjetnost \(P_\psi(\lambda)\), da za kvantni sistem, ki je v stanju \(\ket\psi\) dobimo po meritvi opazljivke \(A\) lastno vrednost \(\lambda\) točno 
+\begin{align*}
+    P_\psi(\lambda) = \norm{P_\lambda \ket\psi}^2,
+\end{align*}
+kjer je \(P_\lambda\) projekcija na lastni podprostor z lastno vrednostjo \(\lambda\) \cite[Poglavje 2.3.1]{mathforqm}.
+
+\begin{izrek}
+    Če je sistem pripravljen v stanju \(\ket\psi \in \Hb\) potem je verjetnost, da izmerimo stanje \(\ket\varphi \in \Hb\) enaka \(\lvert \braket{\varphi}{\psi}\rvert^2\).
+\end{izrek}
+\begin{proof}
+    Opazljivka za preverjanje, če je sistem v stanju \(\varphi\) je kar projekcija \(P_\varphi = \ket\varphi \bra\varphi\). Ima lastno vrednost \(\lambda=1\) za lastni vektor \(\ket\varphi\), torej je projekcija na lastni podprostor tudi \(P_\varphi\).
+    \begin{align*}
+        P_\psi (\lambda) &= P_\psi(1) =\norm{P_1\ket\psi}^2 = \norm{P_\varphi\ket\psi}^2\\
+                        &= \norm{\ket\varphi\braket{\varphi}{\psi}}^2 = \lvert \braket{\varphi}{\psi}\rvert^2,
+    \end{align*}
+    saj \(\norm{\ket\varphi} = 1\).
+\end{proof}
+
+Če izmerimo stanje \(\ket\psi\) za opazljivko \(A\) ter izmerimo lastno vrednost \(\lambda\), potem se stanje \(\ket\psi\) po meritvi spremeni v
+\begin{align*}
+    \frac{P_\lambda \ket\psi}{\norm{P_\lambda\ket\psi}}.
+\end{align*}
+Ta pojav je znan kot kolaps valovne funkcije, saj se pogosto (zaradi zgodovinskih razlogov) stanju \(\psi\) pravi valovna funkcija. Tudi, če smo imeli prej stanje, ki je linearna kombinacija večih vektorjev iz različnih lastnih podprostorov se bo z meritvijo stanje spremenilo in ne bo več linearna kombinacija, pač pa samo element enega. V enostavnem primeru, ko vsak lastni podprostor napenja natanko en vektor, če izmerimo \(\ket\psi\), naš vektor postane \(\ket\psi\), čeprav je bil prej lahko linearna kombinacija večih vektorjev. Po prejšnjem izreku pa imamo višje možnosti izmeriti bližnje lastne podprostore, povprečje pripadajočih lastnih vrednosti pa je natanko pričakovana vrednost \(\ev{A}_\psi\).
+
+Oglejmo si primer meritve spina. Če opravimo meritev glede na opazljivko \(X\) lahko izmerimo lastno vrednost \(1\), kateri pripada lastni vektor \((1,0)\), ali pa lastno vrednost \(-1\), kateri pripada lastni vektor \((0,1)\). Torej ko izmerimo spin delca, se ta po meritvi pretvori v pripadajoči lastni vektor. Recimo da izmerimo spin delca \((a,b)\). Verjetnost, da izmerimo \(1\) je \(a^2\). Če pa se zgodi, da dejansko izmerimo \(1\), pa vemo, da je po meritvi delec v stanju \((1,0)\). Če ga nato še enkrat izmerimo bomo z verjetnostjo \(1\) ponovno izmerili lastno vrednost \(1\).
 \subsection{Kubiti}
 Kubite definiramo kot elemente Hilbertovega prostora \(\mathbb C^2\) dolžine \(1\). Kot njihove opazljivke uporabimo Paulijeve matrike. Če gledamo le spin v \(z\) smeri, uporabljamo opazljivko \(\sigma_z\), ki ima lastne vrednosti \(\{+1, -1\}\). Tem lastnim vrednostim ustrezajo lastni vektorji \(\ket0\) in \(\ket1\), ki jih definiramo kot
 \begin{align*}
@@ -357,7 +363,7 @@ S to oznako lahko preprosto napišemo poljuben element \(\mathbb C^2 \otimes \ma
 \end{align*}
 Hitro opazimo, da dimenzija vektorskega prostora narašča eksponentno. Sistem dveh kubitov je dimenzije \(2^2\), sistem treh je \(2^3\), sistem \(n\) kubitov pa \(2^n\). Ta lastnost kvantnim računalnikom omogoča procesiranje velike količine podatkov z zelo majhnim številom kubitov.
 \subsection{Prepletenost}
-Ključni pojav kvantne mehanike za kvantno računalništvo je prepletenost. Ta omogoča, da se več procesov odvija hkrati na način, ki ni prisoten v klasični fiziki. Če imamo dva kvantna sistema \(\Hb_1\) in \(\Hb_2\) (na primer dva elektrona), potem skupni sistem, katerega del sta oba sistema, opisuje \(\Hb_1\otimes\Hb_2\). Ta prostor pa je običajno večji kot prostor, ki vsebuje elemente oblike \(\ket\varphi\otimes\ket\psi\), saj je le generiran s takimi elementi in so v splošnem elementi oblike \(\sum_{i=0}^n\ket{\varphi_i}\otimes\ket{\psi_i}\). Kadar lahko elemente napišemo kot ločen tenzorski produkt \(\ket\varphi\otimes\ket\psi\), pomeni da elementa nista prepletena in sta med seboj neodvisna.
+Ključni pojav kvantne mehanike za kvantno računalništvo je prepletenost. Ta omogoča, da se več procesov odvija hkrati na način, ki ni prisoten v klasični fiziki. Če imamo dva kvantna sistema \(\Hb_1\) in \(\Hb_2\) (na primer dva elektrona), potem skupni sistem, katerega del sta oba sistema, opisuje \(\Hb_1\otimes\Hb_2\). Ta prostor pa je običajno večji kot prostor, ki vsebuje elemente oblike \(\ket\varphi\otimes\ket\psi\), saj je le generiran s takimi elementi in so v splošnem elementi oblike \(\sum_{i=0}^n\ket{\varphi_i}\otimes\ket{\psi_i}\) za \(\ket{\phi_i}\in\Hb_1\) in \(\ket{\psi_i}\in \Hb_2\). Splošen element lahko napišemo tudi kot linearna kombinacija baznih vektorjev; če so \(\ket{\phi_i}\in \Hb_1\) in \(\ket{\psi_i}\in\Hb_2\) bazni vektorji in \(a_{ij}\) skalarji, je splošen element oblike \(\sum_{i=0}^n\sum_{j=0}^m a_{ij}\ket{\phi_i}\otimes\ket{\psi_j}\). Kadar lahko elemente napišemo kot ločen tenzorski produkt \(\ket\varphi\otimes\ket\psi\), pomeni da elementa nista prepletena in sta med seboj neodvisna.
 \begin{definicija}
     Če se stanja \(\ket\gamma\in \Hb_1\otimes\Hb_2\) ne da napisati kot \(\ket\varphi\otimes\ket\psi = \ket\gamma\) za \(\ket\varphi\in\Hb_1\) in \(\ket\psi\in\Hb_2\), potem je \(\ket\gamma\) prepleteno kvantno stanje.
 \end{definicija}
@@ -377,7 +383,7 @@ ni prepleteno ampak \(\frac{1}{\sqrt2}(\ket{00}+\ket{11})\) je.
 \end{definicija}
 Ker so vrata predstavljena z unitarnimi preslikavami, jim torej ustrezajo tudi matrike. Te matrike navadno predstavimo v standardni bazi \(\ket0, \ket1\).
 
-Najbolj enostaven primer kvantnih vrat je identiteta. To je preslikava, ki ji ustreza identična matrika (v standardni bazi). Omenili smo tudi Paulijeve matrike \ref{Pauli}, ki prav tako predstavljajo kvantna vrata. Tu že dobimo prvo preslikavo, ki predstavlja pomembna klasičnim vratom. Za Paulijevo \(X\) matriko velja \(X\ket0=\ket1\) in \(X\ket1=\ket0\), torej ustrezajo ravno negaciji. Pogosto jih imenujemo tudi qNOT, kar je okrajšava za ``\emph{quantum not}''. Pomembna so tudi Hadamardova vrata
+Najbolj enostaven primer kvantnih vrat je identiteta. To je preslikava, ki ji ustreza identična matrika (v standardni bazi). Omenili smo tudi Paulijeve matrike \ref{Pauli}, ki prav tako predstavljajo kvantna vrata. Tu že dobimo prvo preslikavo, ki je analogna pomembnim klasičnim vratom. Za Paulijevo \(X\) matriko velja \(X\ket0=\ket1\) in \(X\ket1=\ket0\), torej ustrezajo ravno negaciji. Pogosto jih imenujemo tudi \textsf{qNOT}, kar je okrajšava za ``\emph{quantum not}''. Pomembna so tudi Hadamardova vrata
 \begin{align*}
     H &= \frac{1}{\sqrt{2}}(X+Z)\\
       &= \frac{1}{\sqrt2} \begin{bmatrix}
@@ -417,9 +423,9 @@ Zanimivo je, da lahko s slednjimi generiramo poljubno unitarno preslikavo na \(\
 \end{align*}
 za \(y=(0,1,0)\) in \(z=(0,0,1)\).
 
-Binarnim kvantnim vratom ustrezajo unitarne preslikave \(U:\Hb^{\otimes 2}\to \Hb^{\otimes 2}\), čemur ustrezajo \(4\times 4\) kompleksne matrike. Tu sta najbolj pomembni vrati cNOT 
+Binarnim kvantnim vratom ustrezajo unitarne preslikave \(U:\Hb^{\otimes 2}\to \Hb^{\otimes 2}\), čemur ustrezajo \(4\times 4\) kompleksne matrike. Tu sta najbolj pomembni vrati \textsf{cNOT} 
 \begin{align*}
-    \text{cNOT}&=\ket0\bra0\otimes I + \ket1\bra1\otimes X \\
+    \mathsf{cNOT}&=\ket0\bra0\otimes I + \ket1\bra1\otimes X \\
     &=\begin{bmatrix}
         1&0&0&0\\
         0&1&0&0\\
@@ -427,7 +433,7 @@ Binarnim kvantnim vratom ustrezajo unitarne preslikave \(U:\Hb^{\otimes 2}\to \H
         0&0&1&0
     \end{bmatrix}
 \end{align*}
-in swap
+in \textsf{swap}
 \begin{align*}
     S &= \ket{00}\bra{00}+\ket{11}\bra{11}+\ket{01}\bra{10}+\ket{10}\bra{01}\\
     &=\begin{bmatrix}
@@ -437,13 +443,13 @@ in swap
         0&0&0&1
     \end{bmatrix}.
 \end{align*}
-Swap vrata zamenjajo kubita \(S(x\otimes y)=y\otimes x\), cNOT pa prvega pustijo nespremenjenega, drugega pa negirajo cNOT\((x\otimes y)=x\otimes Xy\). Spet se lahko vprašamo, kako veliko množico kvantnih vrat potrebujemo, da predstavimo poljubna vrata.
+Vrata \textsf{swap} zamenjajo kubita \(S(x\otimes y)=y\otimes x\), \textsf{cNOT} pa prvega pustijo nespremenjenega, drugega pa negirajo \textsf{cNOT}\((x\otimes y)=x\otimes Xy\). Spet se lahko vprašamo, kako veliko množico kvantnih vrat potrebujemo, da predstavimo poljubna vrata.
 \begin{definicija}
     Množica kvantnih vrat \(U=\{U_1,\ldots,U_j\}\) je univerzalna, če lahko za poljubno število kubitov \(n\in\N\), poljubna vrata \(V:\Hb^n\to \Hb^n\) napišemo kot kombinacijo produktov vrat iz \(U\), tenzorskih produktov vrat iz \(U\) ter identitet poljubne velikosti.
 \end{definicija}
-Zgoraj omenjena vrata so že dovolj za univerzalnost, nabor pa bi lahko tudi zmanjšali. Dovolj je že \(\{D_x,D_z, M, \)cNOT\(\}\) \cite[Lema 5.26]{mathforqm}.
+Zgoraj omenjena vrata so že dovolj za univerzalnost, nabor pa bi lahko tudi zmanjšali. Dovolj je že \(\{D_x,D_z, M(\alpha), \mathsf{cNOT}\}\) \cite[Lema 5.26]{mathforqm}.
 \subsection{Kvantna vezja}
-V veliki meri bi kvantna vezja lahko enačili s kvantnimi vrati. Vezja si namreč predstavljamo kot zaporedje vrat. Če pa vrata zmnožimo (tenzorsko za vzporedna vrata, navadno za zaporedna vrata) potem dobimo namreč novo unitarno preslikavo, kar so spet po definiciji kvantna vrata. Dodamo pa še nov element kvantne meritve, ki pa ne ustreza kvantnim vratom, saj ni unitarna. Opravi pa enako operacijo kot kvantna meritev: kolapsira valovno funkcijo, izmeri lastno vrednost operatorja ter vrne projekcijo izmerjenega kubita na ustrezni lastni podprostor.
+V veliki meri bi kvantna vezja lahko enačili s kvantnimi vrati. Vezja si namreč predstavljamo kot zaporedje vrat. Če pa vrata zmnožimo (tenzorsko za vzporedna vrata, navadno za zaporedna vrata) potem dobimo namreč novo unitarno preslikavo, kar so spet po definiciji kvantna vrata. Dodamo pa še nov element kvantne meritve, ki pa ne ustreza kvantnim vratom, saj ni unitarna. Ta ustreza že prej omenjeni meritvi iz kvantne mehanike: kolapsira valovno funkcijo, izmeri lastno vrednost operatorja ter vrne projekcijo izmerjenega kubita na ustrezni lastni podprostor.
 
 Unarna vrata predstavimo samo kot črka ustreznega operatorja v kvadratu. Meritev opazljivke \(A\) predstavimo s simbolom
 \begin{center}
@@ -457,7 +463,7 @@ Unarna vrata predstavimo samo kot črka ustreznega operatorja v kvadratu. Merite
 \end{center}
 Če je \(A\) implicitno znana je ne pišemo. 
 
-Za binarne operatorje imamo posebne oznake. Vrata cNOT pišemo kot
+Za binarne operatorje imamo posebne oznake. Vrata \textsf{cNOT} pišemo kot
 \begin{center}
     \begin{tikzpicture}
         \node {
@@ -468,7 +474,7 @@ Za binarne operatorje imamo posebne oznake. Vrata cNOT pišemo kot
             };
     \end{tikzpicture},
 \end{center}
-vrata swap pa
+vrata \textsf{swap} pa
 \begin{center}
     \begin{tikzpicture}
         \node {
@@ -479,7 +485,7 @@ vrata swap pa
             };
     \end{tikzpicture},
 \end{center}
-Za konec napišemo še primer malo večjega vezja. Tu na prvem kubitu izvedemo Hadamardova vrata, na drugem pa najprej vrata \(X\) ter nato Hadamardova. Nato na rezultatu obej opravimo vrata cNOT.
+Za konec napišemo še primer malo večjega vezja. Tu na prvem kubitu izvedemo Hadamardova vrata, na drugem pa najprej vrata \(X\) ter nato Hadamardova. Nato na rezultatu obeh opravimo vrata \textsf{cNOT}.
 \begin{center}
 \begin{tikzpicture}
     \node[scale=1.0] {
@@ -496,30 +502,14 @@ Za fizično implementacijo kvantnih vezij še ni sprejetega pristopa. Ne glede n
 
 Podamo primer kvantnega računalnika preko harmoničnega oscilatorja. Harmonični oscilator je delec s potencialno energijo \(V(x)=m\omega^2x^2/2\), na primer masa na vzmeti ali pa električno vezje v resonanci, kjer energija oscilira med induktorjem ali kondenzatorjem. Iz enačbe za potencialno energijo vidimo, da ima minimum v \(x=0\), okrog njega pa je simetrična. Na primeru vzmeti je \(x=0\) ravnovesna lega. Če vzmet potisnemo stran iz ravnovesne lege bo okoli nje oscilirala. Energija sistema se v tem primeru zvezno spreminja.
 
-Zaradi kvantne narave pa je, če imamo sistem z zelo nizkim energijskim stanjem, energija diskretna funkcija - vzema vrednosti iz diskretne množice števil. Energijska stanja lahko označimo \(\ket{n}\) kjer \(n\in \N\). Kubite lahko dobimo, če vzamemo končno podmnožico teh energijskih stanj \(\{\ket{ n } \mid 0\leq n \leq 2^k\}\) (predstavlja sistem \(k\) kubitov). Definiramo si operatorja \(a\) in \(a^\dagger\), ki predstavljata uničenje in ustvarjanje kvantov. Karakterizirana sta z 
-\begin{align*}
-    a^\dagger \ket n = \sqrt{n+1}\ket{n+1}\\
-    a\ket n = \sqrt n \ket{n-1}.
-\end{align*}
-Po indukciji lahko poljubno kvantno stanje predstavimo z večkratno uporabo operatorja \(a^\dagger\) na \(\ket 0\). Če je
-\begin{align*}
-    \ket{\psi(0)} = \sum_n c_n(0)\ket n,
-\end{align*}
-začetno stanje, potem se ta kubit s časom spremeni v
-\begin{align*}
-     e^{-i\omega(a^\dagger a + 1/2)t}\ket{\psi(0)}
-    = \sum_n c_ne^{-in\omega t}\ket n.
-\end{align*}
-Torej, če želimo predstaviti unitarno transformacijo \(U\) samo izberemo operator \(T = e^{-i\omega(a^\dagger a + 1/2)t}\), ki ima (skoraj) podobne lastne vrednosti kot \(U\).
-
-Slabost tega računalnika pa je, da je v celoti analogen ter zato težko izvedljiv v realnosti, ima pa lepe teoretične lastnosti. Tudi iskanje operatorja \(T\) pogosto ni enostavno \cite[Poglavje 7.3]{nielsen}.
+Zaradi kvantne narave pa je, če imamo sistem z zelo nizkim energijskim stanjem, energija diskretna funkcija - vzema vrednosti iz diskretne množice števil. Energijska stanja lahko označimo \(\ket{n}\) kjer \(n\in \N\). Kubite lahko dobimo, če vzamemo končno podmnožico teh energijskih stanj \(\{\ket{ n } \mid 0\leq n \leq 2^k\}\) (predstavlja sistem \(k\) kubitov). Kvantna vrata predstavljajo kako se sistem spreminja s časom. Izberemo le sistem, kjer se energija ustrezno spreminja ter izmerimo energijska stanja ob koncu transformacije. Slabost tega računalnika pa je, da je v celoti analogen ter zato težko izvedljiv v realnosti, ima pa lepe teoretične lastnosti. Tudi iskanje operatorja \(T\) pogosto ni enostavno \cite[Poglavje 7.3]{nielsen}.
 
 Omenimo še nekaj ostalih pristopov. Pri fotonskih kvantnih računalnikih kubite predstavimo s polarizacijo svetlobe ali frekvenco, vrata pa predstavljajo elementi, ki se obnašajo kot ogledala in delilci svetlobe. Težavno je simulirati interakcijo med različnimi fotoni, kar ponavadi rešijo s Kerrovim efektom, ki omogoča, da se odbojni indeks materiala spremeni, če skozi njega potuje svetloba. Najbolj popularen pristop, ki neposredno uporablja spin delcov, pa je računalnik na jedrsko magnetno resonanco, računalnik s kvantnimi pikami ali pa s superprevodniki ohlajenimi pod kritično temperaturo. Kubite tu predstavlja spin delcev \cite{adamowski}.
 
 %----------------------------- ZX CALC -------------------------------------------
 
 \section{ZX-račun}
-V ZX-računu vezja predstavljamo z grafom. To ima mnogo prednosti, saj so pogosto diagrami bolj pregledni ter poenostavljanje diagramov bolj preprosto. Ključno je, da lahko definiramo diagrame, ki so ekvivalentni vezju (oziroma predstavljajo linearne preslikave), saj te ustrezajo kvantnim procesom. Potem si definiramo dovoljene operacije nad temi grafi, ki so na nek način kompatibilne z operacijami na matrikah vendar naravne ter enostavne za uporabo. Cilj pa je, da z diagrami popolnoma nadomestimo klasični pogled (s klasičnimi kvantnimi vezji in pa linearnimi preslikavami) ter, kjer je mogoče, opisujemo lastnosti le z uporabo ZX-diagramov kot osnovno orodje.
+V ZX-računu vezja predstavljamo z diagramom. To ima mnogo prednosti, saj so pogosto diagrami bolj pregledni ter njihovo poenostavljanje bolj preprosto. Ključno je, da lahko definiramo diagrame, ki so ekvivalentni vezju (oziroma predstavljajo linearne preslikave), vezja pa ustrezajo kvantnim procesom. Potem si definiramo dovoljene transformacije nad temi grafi, ki ohranjajo pripadajoče linearne preslikave, vendar naravne ter enostavne za uporabo. Cilj pa je, da z diagrami popolnoma nadomestimo klasični pogled (s klasičnimi kvantnimi vezji in pa linearnimi preslikavami) ter, kjer je mogoče, opisujemo lastnosti le z uporabo ZX-diagramov kot osnovno orodje.
 \subsection{Pajki}
 Vozlišča v grafu se imenujejo pajki. Poznamo dva primarna tipa pajkov, Z pajek (barvamo zeleno) in X pajek (barvamo rdeče). Pajku pripada faza, realno število, ki ga pišemo na sredini pajka (na skici je to \(\alpha\in\R\)).
 \begin{center}
@@ -573,6 +563,15 @@ To lahko posplošimo in definiramo operator \(\interpret{\cdot}: (D:n\to m)\to (
 \begin{definicija}
     Diagramu \(D:0\to0\) brez vhodov ali izhodov pravimo skalarni diagram.
 \end{definicija}
+Primer skalarnega diagrama, ki ga bomo pogosto uporabljali je 
+\begin{center}
+    \begin{tikzpicture}
+        \node[style=gn] (1) at (0,0) {};
+        \node[style=rn] (2) at (1,0) {};
+        \draw (1) to (2);
+    \end{tikzpicture},
+\end{center}
+ustreza pa mu število \(\frac{1}{\sqrt 2}\).
 
 Na diagramih uporabljamo dve operaciji, tenzorski produkt in pa kompozicijo (oziroma navaden produkt). Tenzorski produkt diagramov ustreza temu, da en diagram položimo nad drugega. Tako če imamo diagrama \(D\) in \(D'\) z \(n\) in \(n'\) vhodi ter \(m\) in \(m'\) izhodi, potem lahko naredimo diagram \(D\otimes D'\) z \(n+n'\) vhodi in \(m+m'\) izhodi. Analogno, kompozicija ustreza da diagram položimo na desno (ter povežemo izhode desnega diagrama z vhodi levega). Tako če imamo diagram \(D:n\to m\) in diagram \(D':m\to k\), lahko definiramo diagram \(D'\circ D: n\to k\), kar ustreza temu, da \(D'\) položimo na desno od \(D\). Velja \(\interpret{D\otimes D'}\defeq \interpret{D} \otimes \interpret{D'}\) in \(\interpret{D\circ D'} \defeq \interpret{D}\circ \interpret{ D'}\).
 
@@ -581,7 +580,7 @@ Iz teh pajkov si lahko definiramo nove konstrukcije. Tako lahko definiramo Hadam
     \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
     \node (0) at (0.00, 0.00) {};
     \node [style=gn] (1) at (1, 0) {\(\frac\pi2\)};
-    \node [style=gn] (a) at (2,1) {\(-\frac\pi2\)};
+    \node [style=gn] (a) at (1,1) {\(-\frac\pi2\)};
     \node [style=rn] (2) at (2, 0) {};
     \node [style=gn] (3) at (3, 0) {\(\frac\pi2\)};
     \node (4) at (4.00, 0.00) {};
@@ -624,17 +623,72 @@ ekvivalenten diagramu
         \draw (h) to (3,0);
     \end{tikzpicture}.
 \end{center}
-Ta lastnost je dejansko ključna za definicijo Hadamardovih vrat ter tudi pokaže zakaj so Hadamardova vrata pomembna, saj nam omogočajo menjavo baze (iz Z na X ali obratno). Lahko si tudi ogledamo matriko preslikave. Tako Hadamardovim vratom ustreza matrika
+Ta lastnost je dejansko ključna za definicijo Hadamardovih vrat ter tudi pokaže zakaj so Hadamardova vrata pomembna, saj nam omogočajo menjavo baze (iz Z na X ali obratno). Lahko si tudi ogledamo matriko preslikave. To izračunamo tako, da vezje iz definicije razdelimo na manjše podenote. Matriko prvih dveh pajkov izračunamo kot tenzorski produkt matrik za oba posemezna pajka. Matriki za preostala pajka pa sledite po definiciji. Ostane le še, da združimo podenote, čemur ustreza matrično množenje.
+\begin{align*}
+    \begin{bmatrix}
+        1&0\\0&i
+    \end{bmatrix}\cdot \left(\ket{+}\bra{++}+\ket{-}\bra{--}\right)\cdot \left(\begin{bmatrix}
+        1\\-i
+    \end{bmatrix}\otimes\begin{bmatrix}
+        1&0\\0&i
+    \end{bmatrix}\right) \\
+    \begin{bmatrix}
+        1&0\\0&i
+    \end{bmatrix}\cdot\left( \frac{1}{\sqrt2}\begin{bmatrix}
+        1&0&0&1\\
+        0&1&1&0
+    \end{bmatrix}\right) \cdot
+    \left(\begin{bmatrix}
+        1 &0\\
+        0 &i\\
+        -i&0\\
+        0 &1
+    \end{bmatrix}
+    \right)
+\end{align*}
+Tako Hadamardovim vratom ustreza matrika
 \begin{align*}
     \frac{1}{\sqrt2}\begin{bmatrix}
         1&1\\
         1&-1
-    \end{bmatrix}
+    \end{bmatrix},
 \end{align*}
+kar je ravno matrika, s katero smo definirali Hadamardova vrata s klasičnim pristopom. Enako bi dobili, če bi uporabili diagram 
+\begin{center}
+    \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
+    \node (0) at (0.00, 0.00) {};
+    \node [style=gn] (1) at (1, 0) {\(\frac\pi2\)};
+    \node [style=gn] (a) at (3,1) {\(-\frac\pi2\)};
+    \node [style=rn] (2) at (2, 0) {};
+    \node [style=gn] (3) at (3, 0) {\(\frac\pi2\)};
+    \node (4) at (4.00, 0.00) {};
+    \draw (0) to (1);
+    \draw (1) to (2);
+    \draw (2) to (3);
+    \draw (2) to (a);
+    \draw (3) to (4);
+    \end{tikzpicture},
+\end{center}
+kateremu ustreza linearna preslikava 
+\begin{align*}
+    \left(\begin{bmatrix}
+        1&-i
+    \end{bmatrix}\otimes\begin{bmatrix}
+        1&0\\0&i
+    \end{bmatrix}\right)\cdot \left(\frac{1}{\sqrt2}\begin{bmatrix}
+        1&0\\
+        0&1\\
+        0&1\\
+        1&0
+    \end{bmatrix}\right) \cdot \begin{bmatrix}
+        1&0\\0&i
+    \end{bmatrix}.
+\end{align*}
+To dejstvo velja tudi za poljubne diagrame in jih lahko poljubno preoblikujemo, dokler ohranjamo povezave.
 
 Tako smo definirali osnovne sestavne elemente ZX-diagramov. Brez operacij nad njimi pa so te diagrami le navadni grafi, nepovezani s kvantno mehaniko ali kvantnimi procesi. Dovoljene operacije podamo kot seznam aksiomov, ki pripadajo ZX-računu.
 \subsection{Aksiomi}
-Za začetek bomo uporabili aksiomatizacijo za splošen ZX-račun podano v \cite[poglavje 2.2]{vilmart}, obstajajo pa tudi nekatere razširitve in drobci, prav tako pa alternativne izbire aksiomov.
+Za začetek bomo uporabili aksiomatizacijo za splošen ZX-račun podano v \cite[poglavje 2.2]{vilmart}, obstajajo pa tudi nekatere razširitve in različice, prav tako pa alternativne izbire aksiomov.
 
 Aksiomi ZX diagramov so zelo simetrični. Če neka lastnost velja za diagrame z zelenimi Z pajki, velja tudi, če te pajke spremenimo v rdeče X pajke. Tudi bolj splošno velja: za vsak aksiom obstaja dualni aksiom, kjer so povezave in faze identične, barve pa zamenjamo. Torej lahko zamenjamo tudi barvo pravil, ki vsebujejo mešane pajke (in ne le samo enobarvnih). Dodatno, vsi predstavljeni aksiomi so ekvivalence, torej za njih držijo lastnosti ekvivalenčnih relacij. Posebej je treba poudariti simetričnost: pravila delujejo tudi v obratno smer. Ko aksiom pravi, da lahko sosednje pajke združimo bi prav tako lahko samotarski pajek ločili v več novih (dokler ga lahko z enakim aksiomom združimo nazaj v prvotnega).
 
@@ -706,7 +760,7 @@ Zanimivo in pomembno je tudi, da se topološka ekvivalenca prenese na vhode in i
 		\draw [in=30, out=0, looseness=2.00] (7.center) to (5);
     \end{tikzpicture}
 \end{center}
-Torej je težko govoriti o vhodih ali izhodih pajkov, saj lahko vsak vhod spremenimo v izhod (in s tem ne spremenimo vezja) in tudi obratno. Še vedno pa nam to pomaga pri intuiciji in opisu diagramov, tako da povezavam, ki prihajajo iz leve strani, pravimo vhodi, tistim na desni strani pajka pa izhodi. Pogosto pa zaradi lepšega izgleda povezavo pustimo kar navpično. Kot primer si oglejmo vrata C--NOT. 
+Torej je težko govoriti o vhodih ali izhodih pajkov, saj lahko vsak vhod spremenimo v izhod (in s tem ne spremenimo vezja) in tudi obratno. Še vedno pa nam to pomaga pri intuiciji in opisu diagramov, tako da povezavam, ki prihajajo iz leve strani, pravimo vhodi, tistim na desni strani pajka pa izhodi. Pogosto pa zaradi lepšega izgleda povezavo pustimo kar navpično. Prej smo ekvivalenco topološko preurejenih diagramov že preverili na primeru Hadamardovih vrat. Podobno bi lahko preverili tudi za ostale diagrame, na primer vrata \textsf{cNOT}. 
 \begin{center}
     \begin{tikzpicture}
         \node (quantum) at (0,0.5) {
@@ -956,7 +1010,7 @@ lahko preprosto izbrišemo. Prazen diagram ustreza skalarju \(1\), torej je ta d
 %ekvivalenten skalarju \(1\).
 %
 \subsubsection{Bialgebra} \label{bialgebra}
-Prvo izmed pravil, ki izraža močno komplementarnost baz je pravilo bialgebre.
+Pravilo bialgebre nam pove, kako lahko poenostavljamo diagrame, kjer so povezani pajki različnih barv.
 \begin{center}
     \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
             \node [style=gn] (0) at (-3, 0) {};
@@ -994,7 +1048,7 @@ Prvo izmed pravil, ki izraža močno komplementarnost baz je pravilo bialgebre.
 \end{center}
 
 \subsubsection{Pravilo kopiranja} \label{kopiranje}
-Drugo pravilo močne komplementarnosti baz nam omogoča, da vhod ``kopiramo''. Izvorna informacija prihaja iz enega rdečega pajka naprej, s tem pravilom pa je to ekvivalentno dvem pajkom.
+Ta aksiom nam omogoča, da vhod ``kopiramo''. Izvorna informacija prihaja iz enega rdečega pajka, s tem pravilom pa je to ekvivalentno temu, da dva nepovezana pajka informacijo pošiljata naprej.
 \begin{center}
     \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
             \node [style=rn] (0) at (-3, -1) {};
@@ -1082,7 +1136,7 @@ Hadamardova vrata lahko uporabimo za menjavo barve pajka tako, da na vse njegove
 Ta aksiom karakterizira Hadamardova vrata glede na to, kako spreminja pajke oziroma kako vpliva na preostanek diagrama, med tem ko prejšnji aksiom karakterizira vrata glede na to kaj vrata so na elementaren način, neodvisno od preostanka diagrama. Prejšnji opisuje kaj Hadamardova so, ta pa kaj naredijo.
 
 \subsubsection{Eulerjevi koti} \label{euler}
-Zadnji aksiom je tudi najtežji in tudi najbolj nestandarden, vendar potreben za določene zaželjene lastnosti, še posebaj polnost (če imamo par diagramov, ki predstavljata isti kvantni proces sta tudi ekvivalentna - enega lahko pretvorimo v drugega z uporabo aksiomov). 
+Zadnji aksiom je tudi najtežji in tudi najbolj nestandarden, vendar potreben za določene zaželjene lastnosti. Namreč če imamo dva diagrama, katerima pripada enaka matrika še ni nujno zagotovljeno, da obstaja zaporedje prej naštetih transformacij, ki prvega pretvori v drugega. Kot protiprimer služi ravno enakost v aksiomu Eulerjevih kotov. Če pa kot aksiom dodamo samo še to transformacijo imamo zagotovljeno, da lahko poljubna diagrama, katerima pripada enaka matrika, preoblikujemo enega v drugega z uporabo aksiomov. To lastnost imenujemo \emph{polnost}.
 \begin{center}
     \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
             \node [style=none] (0) at (-4, 0) {};
@@ -1485,7 +1539,7 @@ Tukaj velja še omeniti skalarne grafe. Mnogi pristopi v aksiomih izpustijo skal
 Že od samega začetka uvedbe ZX-računa je bila polnost najbolj iskana lastnost jezika. Dovoli namreč, da lahko vsako lastnost, ki drži v Diracovem formalizmu, dokažemo tudi v ZX računu, kar pa ne velja z uporabo klasičnih vezij, saj za njih nimamo dovolj močnih pravil poenostavljanj. Prvotne izbire aksiomov niso bile polne, kar je omejilo ekspresivnost jezika in možnost njegove uporabe. Večina formalizacij je potrebovala nekakšen nelinearen aksiom, pri nas pa za to poskrbi aksiom Eulerjevih kotov \ref{euler}. Že pri zgodnjih rezultatih so sumili, da je podoben aksiom potreben \cite{Schr_der_de_Witt_2014}, vendar ni bilo znano, ali je zadosten. Kasneje pa so dokazali, da je bila to edina večja prepreka in leta 2017 dokazali polnost. Dokaz polnosti je potekal preko podobnega grafičnega jezika ZW-računa, za katerega je bila polnost že znana \cite{kangfengng}.
 
 Oglejmo si primer uporabe polnosti.
-\begin{izrek}[Inverz korena]\label{inv-koren}
+\begin{primer}[Inverz korena]\label{inv-koren}
     Vezje
     \begin{center}
         \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
@@ -1500,7 +1554,7 @@ Oglejmo si primer uporabe polnosti.
         \end{tikzpicture}        
     \end{center}
     je ekvivalentno praznemu diagramu
-\end{izrek}
+\end{primer}
 \begin{proof}
     Graf je sestavljen iz dveh komponent. To pomeni, da je njuna interpretacija teznorski produkt obeh povezanih komponent. Obe komponenti sta skalarna diagrama, kar pomeni, da predstavljata števili. Izračunamo kateri števili predstavljati, ter preverimo, da sta res inverzni za množenje (saj je tenzorski produkt \(1\times 1\) matrik kar množenje).
 
@@ -1537,11 +1591,12 @@ Oglejmo si primer uporabe polnosti.
 \end{proof}
 Ta pristop običajno ni uporaben. Že v primeru skalarnih diagramov na treh kubitih imamo opravka z vektorji z osmimi elementi. V kvantnih vezjih je običajno enako število vhodov kot izhodov, torej bi imeli opravka z \(8\times8\) matriko. Ob času pisanja ima najzmoglivejši kvantni računalnik \(127\) kubitov \cite{hugh}, kar je še premajhno število kubitov za veliko uporab. Če bi želeli napisati matriko, ki predstavlja vezje takega računalnika bi dobili \(2^{127}\times 2^{127}\) matriko, kar je praktično neizračunljivo. Če pa se držimo ZX diagramov pa ima vezje 127 vhodnih in 127 izhodnih povezav. Tako ima pri polnosto večji pomen to, da zagotovi, da vezje lahko poenostavimo kot pa to, da preverjamo enakost z matrikami.
 \subsubsection{Univerzalnost}
+Vemo že, da vsakemu diagramu pripada neka matrika. Velja pa tudi obratno in vsaki matriki pripada nek diagram.
 \begin{izrek}[Univerzalnost]
     Za poljubno linearno preslikavo kubitov \(A:\C^{2^n}\to \C^{2^m}\), ki preslika \(n\) kubitov v \(m\) kubitov, obstaja ZX diagram \(D:n\to m\) za katerega \(\interpret{D}=A\)
 \end{izrek}
 \begin{proof}
-Vemo, da lahko poljubno unitarno preslikavo \(n\) kubitov napišemo z uporabo cNOT vrat ter eno kubitnih unitarnih preslikav \cite[Izrek 5.26]{mathforqm}. Če to naredimo, je potreben le opis kako prevesti cNOT vrata v ZX račun in kako prevesti splošno enokubitno unitarno preslikavo v ZX račun. Vemo, da cNOT vratom pripada matrika
+Vemo, da lahko poljubno unitarno preslikavo \(n\) kubitov napišemo z uporabo \textsf{cNOT} vrat ter eno kubitnih unitarnih preslikav \cite[Izrek 5.26]{mathforqm}. Če to naredimo, je potreben le opis kako prevesti \textsf{cNOT} vrata v ZX račun in kako prevesti splošno enokubitno unitarno preslikavo v ZX račun. Vemo, da \textsf{cNOT} vratom pripada matrika
 \begin{align*}
     \begin{bmatrix}
         1&0&0&0\\
@@ -1584,10 +1639,8 @@ Sedaj imamo univerzalnost za preslikave \(n\) kubitov v \(n\) kubitov. Kvantna s
 
 Izrek o univerzalnosti nam pove, da so diagrami dovolj ekspresivni in lahko opišejo poljubno transformacijo kubitov. Izrek o polnosti pa nam pove, da niso \emph{preveč} ekspresivni in bi lahko neko transformacijo opisali na več neekvivalentnih načinov. Če združimo izreka skupaj dobimo, da lahko vsako kvantno transformacijo napišemo na natanko en način, do pravil prepisovanja natančno.
 
-Obrat univerzalnosti tudi velja: za vsak diagram \(D:n\to m\) obstaja matrika \(A: \C^{2^n}\to \C^{2^m}\), da \(\interpret{D}=A\). Ta izrek je po konstrukciji trivialen, saj \(\interpret{D}\) je ta matrika, ki pa vedno obstaja; vsaki lastnosti diagrama (pajki, povezave, kompozicije) smo definirali ustrezen pojem iz linearne algebre. 
-
-\subsection{Drobci}
-Drobci ZX računa so različice formalizma, kjer omejimo konstrukcije v diagramu, navadno dovoljene faze pajkov. Tako v primeru \(\frac\pi2\) drobca namesto \(\alpha\in \R\) uporabimo le \(\alpha\in\{k\cdot \frac\pi2\mid k\in\Z\}\). Drobci imajo posebaj pomembno zgodovinsko vlogo, saj so polnost jezika najprej dokazali za drobce.
+\subsection{Različice}
+Različica ZX-računa je formalizem, kjer omejimo konstrukcije v diagramu, navadno dovoljene faze pajkov. Tako v primeru \(\frac\pi2\) različice namesto \(\alpha\in \R\) uporabimo le \(\alpha\in\{k\cdot \frac\pi2\mid k\in\Z\}\). Različice imajo posebaj pomembno zgodovinsko vlogo, saj so za njih polnost jezika dokazali pred polnostjo splošnega ZX-računa.
 \subsubsection{Drobec za Cliffordovo teorijo}
 Tu dovolimo le faze, ki so večkratniki števila \(\frac\pi2\). Ta drobec ustreza Cliffordovi kvantni mehaniki, dovoljene so samo meritve, priprave stanj in unitarne transformacije, ki so del Cliffordove grupe.
 \begin{definicija}
@@ -1684,7 +1737,7 @@ Ena izmed bolj pomembih uporab ZX računa je iskanje bolj enostavnih kvantnih ve
     Ob tej točki lahko diagram enostavno pretvorimo nazaj v kvantno vezje.
 \end{proof}
 Izrek je sicer uporaben ter pokaže moč topološke ekvivalence grafov, vendar ne pokaže polne moči aksiomov ZX računa.
-\begin{izrek}[cNOT dekompozicija swap \protect{\cite[Primer 4.2]{peham}}] \label{swap-dekomp}
+\begin{izrek}[\textsf{cNOT} dekompozicija \textsf{swap} \protect{\cite[Primer 4.2]{peham}}] \label{swap-dekomp}
     Vezje 
     \begin{center}
         \begin{tikzpicture}
@@ -1833,7 +1886,7 @@ Izrek je sicer uporaben ter pokaže moč topološke ekvivalence grafov, vendar n
                 \draw (15.center) to (16);
         \end{tikzpicture}        
     \end{center}
-    Z uporabo aksioma identitete \ref{identiteta} dobimo vezje, ki ustreza vratom swap
+    Z uporabo aksioma identitete \ref{identiteta} dobimo vezje, ki ustreza vratom \textsf{swap}
     \begin{center}
         \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
                 \node [style=none] (14) at (-2, 1) {};
@@ -1853,8 +1906,8 @@ Izrek je sicer uporaben ter pokaže moč topološke ekvivalence grafov, vendar n
         \end{tikzpicture}.
     \end{center}
 \end{proof}
-Dokažemo še podoben izrek z dvemi cNOT vrati.
-\begin{izrek}[cNOT je svoj inverz] \label{cnot-inverse}
+Dokažemo še podoben izrek z dvemi \textsf{cNOT} vrati.
+\begin{izrek}[\textsf{cNOT} je svoj inverz] \label{cnot-inverse}
     Vezje 
     \begin{center}
         \begin{tikzpicture}
@@ -1877,7 +1930,7 @@ Dokažemo še podoben izrek z dvemi cNOT vrati.
             };
             \end{tikzpicture},
         \end{center}
-    kar pomeni, da je cNOT sam svoj inverz.
+    kar pomeni, da je \textsf{cNOT} sam svoj inverz.
 \end{izrek}
 \begin{proof}
     Spet prepišemo vezje v ZX diagram
@@ -1932,7 +1985,7 @@ Dokažemo še podoben izrek z dvemi cNOT vrati.
     \end{center}
     Nato uporabimo Hopfov zakon \ref{hopf}, kar izbriše dvojno povezavo med pajkoma Z in X ter, s pomočjo aksioma identitete \ref{identiteta}, izbrišemo preosatala pajka.
 \end{proof}
-Nazadnje si pogledamo še bolj uporabna primera. Primera prikazujeta kaj je GHZ stanje in kako sta si dva načina ustvarjanja GHZ stanja ekvivalentna do permutacije kubitov natančno. Tu izberemo drugačen postopek dokaza, ki je pogosto bolj naraven. Dve vezji sta si ekvivalentni do permutacije kubitov natančno, če lahko kompozitum prvega vezja in inverz drugega vezja poenostavimo do samih swap vrat.
+Nazadnje si pogledamo še bolj uporabna primera. Primera prikazujeta kaj je GHZ stanje in kako sta si dva načina ustvarjanja GHZ stanja ekvivalentna do permutacije kubitov natančno. Tu izberemo drugačen postopek dokaza, ki je pogosto bolj naraven. Dve vezji sta si ekvivalentni do permutacije kubitov natančno, če lahko kompozitum prvega vezja in inverz drugega vezja poenostavimo do samih \textsf{swap} vrat.
 
 GHZ stanje je sistem treh prepletenih kubitov, kjer polovico časa izmerimo \(\ket{000}\), polovico časa pa \(\ket{111}\)
 \begin{izrek}
@@ -2144,7 +2197,7 @@ uporabljenim na vhodu \(\ket{00}\). To vezje torej pretvarja standardno bazo v B
     do permutacije kubitov natančno
 \end{izrek}
 \begin{proof}
-    Zaradi preglednosti ne rišemo skalarnih diagramov za \(\sqrt2\), ki pripadajo cNOT vratom, bomo pa spremljali njihovo število.
+    Zaradi preglednosti ne rišemo skalarnih diagramov za \(\sqrt2\), ki pripadajo \textsf{cNOT} vratom, bomo pa spremljali njihovo število.
     Prvemu vezju ustreza diagram
     \begin{center}
         \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
@@ -2291,7 +2344,7 @@ uporabljenim na vhodu \(\ket{00}\). To vezje torej pretvarja standardno bazo v B
                 \draw (25) to (19);
         \end{tikzpicture}            
     \end{center}
-    Potem izničimo Hadamardova vrata \ref{had-inverz}, pretvorimo trojico cNOT vrat v swap \ref{swap-dekomp} in vezje preuredimo. Iz skupaj sedmih skalarnih diagramov dobimo štiri.
+    Potem izničimo Hadamardova vrata \ref{had-inverz}, pretvorimo trojico \textsf{cNOT} vrat v \textsf{swap} \ref{swap-dekomp} in vezje preuredimo. Iz skupaj sedmih skalarnih diagramov dobimo štiri.
     \begin{center}
         \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
                 \node [style=gn] (4) at (-2, -1) {};
@@ -2333,7 +2386,7 @@ uporabljenim na vhodu \(\ket{00}\). To vezje torej pretvarja standardno bazo v B
                 \draw (26.center) to (14.center);
         \end{tikzpicture}        
     \end{center}
-    Zaključimo z dvojnim izničenjem cNOT parov \ref{cnot-inverse}, kar izniči še preostale skalarne diagrame.
+    Zaključimo z dvojnim izničenjem \textsf{cNOT} parov \ref{cnot-inverse}, kar izniči še preostale skalarne diagrame.
     \begin{center}
         \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
                 \node [style=none] (14) at (3, 1) {};
@@ -2411,7 +2464,7 @@ Diagram ima dva izhoda, kar predstavlja dva (prepletena) kubita. Spodnjega obdr�
             \draw (8.center) to (9.center);
     \end{tikzpicture}    
 \end{center}
-Sedaj združimo stanje \(\ket{\psi}\) z Bellovim delcem. To najlažje naredimo tako, da pretvorimo kubite iz Bellove baze nazaj v standardno bazo, da jih bomo lahko naravno izmerili. Vezje za pretvorbo iz Bellove baze pa je ravno zrcaljen diagram vezja, za pretvarjanje v Bellovo bazo \ref{bell}. Lahko bi ubrali tudi druge načine, vendar so vrata cNOT in Hadamard običajna, merjenje v standardni bazi najlažje, način pa je usklajen z izbiro Bellovega delca kot nosilca informacij.
+Sedaj združimo stanje \(\ket{\psi}\) z Bellovim delcem. To najlažje naredimo tako, da pretvorimo kubite iz Bellove baze nazaj v standardno bazo, da jih bomo lahko naravno izmerili. Vezje za pretvorbo iz Bellove baze pa je ravno zrcaljen diagram vezja, za pretvarjanje v Bellovo bazo \ref{bell}. Lahko bi ubrali tudi druge načine, vendar so vrata \textsf{cNOT} in Hadamard običajna, merjenje v standardni bazi najlažje, način pa je usklajen z izbiro Bellovega delca kot nosilca informacij.
 \begin{center}
     \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
             \node [style=none] (1) at (1, 1) {};
@@ -2579,7 +2632,6 @@ ZX račun je močno, vendar enostavno, orodje za dokazovanje trditev v kvantni m
 \geslo{ZX calculus}{ZX račun}
 \geslo{quantum mechanics}{kvantna mehanika}
 \geslo{logic gate}{logična vrata}
-\geslo{functional completeness}{funkcijska polnost}
 \geslo{Hilbert space}{Hilbertov prostor}
 \geslo{unitary operator}{unitarni operator}
 \geslo{tensor product}{tenzorski produkt}
