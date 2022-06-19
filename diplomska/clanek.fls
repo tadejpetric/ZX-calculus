@@ -1435,11 +1435,11 @@ INPUT clanek.toc
 INPUT clanek.toc
 OUTPUT clanek.toc
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecti1200.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary6.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecrm0900.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecti1200.tfm
 INPUT /usr/share/texmf-dist/tex/latex/base/t1cmss.fd
 INPUT /usr/share/texmf-dist/tex/latex/base/t1cmss.fd
 INPUT /usr/share/texmf-dist/tex/latex/base/t1cmss.fd
